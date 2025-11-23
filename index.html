@@ -519,6 +519,10 @@
                 <option value="all">All Semesters (1-4)</option>
               </select>
             </div>
+            <div class="info-row">
+              <span class="info-label">Report Date:</span>
+              <input type="date" class="input-field" id="reportDate" />
+            </div>
           </div>
         </div>
 
@@ -719,6 +723,9 @@
       // Set current date
       document.getElementById("footerDate").textContent =
         new Date().toLocaleDateString();
+
+      // Set default report date to today
+      document.getElementById("reportDate").valueAsDate = new Date();
 
       const subjectsBySemester = {
         1: [
@@ -1234,46 +1241,49 @@
         const studentName =
           document.getElementById("studentName").value || "Student";
         const rollNo = document.getElementById("rollNo").value || "N/A";
-        const className =
-          document.getElementById("studentClass").value || "N/A";
         const resultText = document.getElementById("resultValue").textContent;
 
-        if (!resultText) {
+        if (!resultText || resultText.trim() === "") {
           alert("Please calculate CGPA first before downloading the report.");
           return;
         }
 
         // Generate preview HTML
-        generatePDFPreview(studentName, rollNo, className);
+        generatePDFPreview(studentName, rollNo);
 
         // Show modal
         document.getElementById("pdfModal").classList.add("show");
       }
 
-      function generatePDFPreview(studentName, rollNo, className) {
-        const reportDate = document.getElementById("reportDate").value;
+      function generatePDFPreview(studentName, rollNo) {
+        const reportDate =
+          document.getElementById("reportDate").value ||
+          new Date().toLocaleDateString();
         const resultValue = document.getElementById("resultValue").textContent;
         const resultLabel = document.getElementById("resultLabel").textContent;
-        const remarksText = document.getElementById("remarksText").textContent;
+        const remarksText =
+          document.getElementById("remarksText").textContent || "No remarks";
 
         let tableRows = "";
-        subjects.forEach((s, i) => {
-          const grade = document.getElementById(`g${i}`).value || "-";
-          tableRows += `
-            <tr>
-              <td style="border: 1px solid #ddd; padding: 10px; text-align: center;">${s.code}</td>
-              <td style="border: 1px solid #ddd; padding: 10px; text-align: left;">${s.name}</td>
-              <td style="border: 1px solid #ddd; padding: 10px; text-align: center;">${s.credits}</td>
-              <td style="border: 1px solid #ddd; padding: 10px; text-align: center; font-weight: bold; color: #2d5016;">${grade}</td>
-            </tr>
-          `;
-        });
+        if (subjects.length > 0) {
+          subjects.forEach((s, i) => {
+            const grade = document.getElementById(`g${i}`).value || "-";
+            tableRows += `
+              <tr>
+                <td style="border: 1px solid #ddd; padding: 10px; text-align: center;">${s.code}</td>
+                <td style="border: 1px solid #ddd; padding: 10px; text-align: left;">${s.name}</td>
+                <td style="border: 1px solid #ddd; padding: 10px; text-align: center;">${s.credits}</td>
+                <td style="border: 1px solid #ddd; padding: 10px; text-align: center; font-weight: bold; color: #2d5016;">${grade}</td>
+              </tr>
+            `;
+          });
+        }
 
         const previewHTML = `
           <div style="background: white; padding: 30px; border: 2px solid #2d5016; border-radius: 8px;">
             <div style="text-align: center; margin-bottom: 25px;">
               <h1 style="color: #2d5016; margin: 0; font-size: 28px;">REPORT CARD</h1>
-              <p style="color: #666; margin: 5px 0; font-size: 12px;">School Report Card System</p>
+              <p style="color: #666; margin: 5px 0; font-size: 12px;">A. Sravan Kumar School | Osmania University - MCA</p>
             </div>
 
             <div style="margin-bottom: 20px; background: #f9f9f9; padding: 15px; border-left: 4px solid #2d5016;">
@@ -1283,8 +1293,8 @@
                   <td style="padding: 5px 0;"><strong>Roll No:</strong> ${rollNo}</td>
                 </tr>
                 <tr>
-                  <td style="padding: 5px 0;"><strong>Class:</strong> ${className}</td>
                   <td style="padding: 5px 0;"><strong>Date:</strong> ${reportDate}</td>
+                  <td style="padding: 5px 0;"></td>
                 </tr>
               </table>
             </div>
@@ -1336,8 +1346,9 @@
         const studentName =
           document.getElementById("studentName").value || "Student";
         const rollNo = document.getElementById("rollNo").value || "N/A";
-        const className =
-          document.getElementById("studentClass").value || "N/A";
+        const reportDate =
+          document.getElementById("reportDate").value ||
+          new Date().toLocaleDateString();
 
         // Title
         doc.setFontSize(20);
@@ -1346,74 +1357,77 @@
 
         doc.setFontSize(11);
         doc.setTextColor(100, 100, 100);
-        doc.text("School Report Card System", 105, 27, { align: "center" });
+        doc.text("A. Sravan Kumar School | Osmania University - MCA", 105, 27, {
+          align: "center",
+        });
 
         // Student Info
         doc.setFontSize(11);
         doc.setTextColor(0, 0, 0);
         doc.text(`Student Name: ${studentName}`, 20, 40);
         doc.text(`Roll No: ${rollNo}`, 110, 40);
-        doc.text(`Class: ${className}`, 20, 47);
-        doc.text(
-          `Date: ${document.getElementById("reportDate").value}`,
-          110,
-          47
-        );
+        doc.text(`Date: ${reportDate}`, 20, 47);
 
         // Table Header
         const tableData = [];
-        subjects.forEach((s, i) => {
-          const grade = document.getElementById(`g${i}`).value || "-";
-          tableData.push([s.code, s.name, s.credits, grade]);
-        });
+        if (subjects.length > 0) {
+          subjects.forEach((s, i) => {
+            const grade = document.getElementById(`g${i}`).value || "-";
+            tableData.push([s.code, s.name, s.credits.toString(), grade]);
+          });
+        }
 
-        doc.autoTable({
-          head: [["Sub Code", "Subject Name", "Credits", "Grade Secured"]],
-          body: tableData,
-          startY: 55,
-          margin: 20,
-          headStyles: {
-            fillColor: [45, 80, 22],
-            textColor: [255, 255, 255],
-            fontStyle: "bold",
-          },
-          bodyStyles: {
-            textColor: [0, 0, 0],
-          },
-          alternateRowStyles: {
-            fillColor: [245, 245, 245],
-          },
-        });
+        if (tableData.length > 0) {
+          doc.autoTable({
+            head: [["Sub Code", "Subject Name", "Credits", "Grade Secured"]],
+            body: tableData,
+            startY: 55,
+            margin: 20,
+            headStyles: {
+              fillColor: [45, 80, 22],
+              textColor: [255, 255, 255],
+              fontStyle: "bold",
+            },
+            bodyStyles: {
+              textColor: [0, 0, 0],
+            },
+            alternateRowStyles: {
+              fillColor: [245, 245, 245],
+            },
+          });
 
-        // Get result info
-        const resultText = document.getElementById("resultValue").textContent;
-        const resultLabel = document.getElementById("resultLabel").textContent;
-        let remarksText = document.getElementById("remarksText").textContent;
+          // Get result info
+          const resultText = document.getElementById("resultValue").textContent;
+          const resultLabel =
+            document.getElementById("resultLabel").textContent;
+          const remarksText =
+            document.getElementById("remarksText").textContent || "No remarks";
 
-        if (resultText && resultText !== "") {
-          const yPosition = doc.lastAutoTable.finalY + 15;
+          if (resultText && resultText !== "") {
+            const yPosition = doc.lastAutoTable.finalY + 15;
 
-          doc.setFontSize(14);
-          doc.setTextColor(45, 80, 22);
-          doc.text("CGPA:", 20, yPosition);
+            doc.setFontSize(14);
+            doc.setTextColor(45, 80, 22);
+            doc.text("CGPA:", 20, yPosition);
 
-          doc.setFontSize(16);
-          doc.setTextColor(45, 80, 22);
-          doc.text(resultText, 50, yPosition);
+            doc.setFontSize(16);
+            doc.setTextColor(45, 80, 22);
+            doc.text(resultText, 50, yPosition);
 
-          doc.setFontSize(11);
-          doc.setTextColor(100, 100, 100);
-          doc.text(`Performance: ${resultLabel}`, 20, yPosition + 10);
+            doc.setFontSize(11);
+            doc.setTextColor(100, 100, 100);
+            doc.text(`Performance: ${resultLabel}`, 20, yPosition + 10);
 
-          // Remarks
-          doc.setFontSize(11);
-          doc.setTextColor(45, 80, 22);
-          doc.text("Remarks:", 20, yPosition + 20);
+            // Remarks
+            doc.setFontSize(11);
+            doc.setTextColor(45, 80, 22);
+            doc.text("Remarks:", 20, yPosition + 20);
 
-          doc.setFontSize(10);
-          doc.setTextColor(0, 0, 0);
-          const splitRemarks = doc.splitTextToSize(remarksText, 170);
-          doc.text(splitRemarks, 20, yPosition + 27);
+            doc.setFontSize(10);
+            doc.setTextColor(0, 0, 0);
+            const splitRemarks = doc.splitTextToSize(remarksText, 170);
+            doc.text(splitRemarks, 20, yPosition + 27);
+          }
         }
 
         // Footer
