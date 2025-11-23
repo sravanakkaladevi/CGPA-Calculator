@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Report Card - CGPA Calculator</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #f5f5f5, #e8e8e8);
+        padding: 30px;
+        color: #333;
+      }
+
+      .page-wrapper {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      .report-card {
+        background: white;
+        border: 3px solid #2d5016;
+        border-radius: 10px;
+        padding: 40px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        position: relative;
+      }
+
+      /* Decorative corner elements */
+      .corner-decoration {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        border: 3px solid #2d5016;
+      }
+
+      .corner-decoration.top-left {
+        top: 15px;
+        left: 15px;
+        border-right: none;
+        border-bottom: none;
+      }
+
+      .corner-decoration.top-right {
+        top: 15px;
+        right: 15px;
+        border-left: none;
+        border-bottom: none;
+      }
+
+      .corner-decoration.bottom-left {
+        bottom: 15px;
+        left: 15px;
+        border-right: none;
+        border-top: none;
+      }
+
+      .corner-decoration.bottom-right {
+        bottom: 15px;
+        right: 15px;
+        border-left: none;
+        border-top: none;
+      }
+
+      .header-section {
+        text-align: center;
+        margin-bottom: 30px;
+        border-bottom: 3px solid #2d5016;
+        padding-bottom: 20px;
+      }
+
+      .school-logo {
+        font-size: 40px;
+        margin-bottom: 10px;
+      }
+
+      .header-section h1 {
+        font-size: 28px;
+        font-weight: bold;
+        color: #2d5016;
+        margin-bottom: 5px;
+      }
+
+      .header-section p {
+        font-size: 14px;
+        color: #666;
+        margin: 3px 0;
+      }
+
+      .student-info {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        margin-bottom: 30px;
+        background: #f9f9f9;
+        padding: 20px;
+        border-radius: 8px;
+        border-left: 4px solid #2d5016;
+      }
+
+      .info-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+        border-bottom: 1px dotted #ddd;
+      }
+
+      .info-label {
+        font-weight: bold;
+        color: #2d5016;
+        min-width: 100px;
+      }
+
+      .info-value {
+        color: #333;
+      }
+
+      .input-field {
+        border: none;
+        border-bottom: 1px solid #999;
+        padding: 5px;
+        width: 100%;
+        background: transparent;
+        font-family: Arial;
+      }
+
+      .input-field:focus {
+        outline: none;
+        border-bottom: 2px solid #2d5016;
+      }
+
+      .grades-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 25px;
+        border: 2px solid #2d5016;
+      }
+
+      .grades-table thead {
+        background: #2d5016;
+        color: white;
+      }
+
+      .grades-table th {
+        padding: 15px;
+        text-align: center;
+        font-weight: bold;
+        font-size: 14px;
+        border: 1px solid #1a3009;
+      }
+
+      .grades-table td {
+        padding: 12px;
+        text-align: center;
+        border: 1px solid #ddd;
+        font-size: 13px;
+      }
+
+      .grades-table tbody tr:nth-child(even) {
+        background: #f9f9f9;
+      }
+
+      .grades-table tbody tr:hover {
+        background: #f0f8f0;
+      }
+
+      .grade-select {
+        padding: 6px 10px;
+        border: 1px solid #2d5016;
+        border-radius: 4px;
+        background: white;
+        color: #333;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 13px;
+      }
+
+      .grade-select:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(45, 80, 22, 0.2);
+      }
+
+      .result-section {
+        background: linear-gradient(135deg, #2d5016, #3a6b1f);
+        color: white;
+        padding: 25px;
+        border-radius: 8px;
+        text-align: center;
+        margin-bottom: 25px;
+        display: none;
+      }
+
+      .result-section.show {
+        display: block;
+      }
+
+      .result-value {
+        font-size: 48px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .result-label {
+        font-size: 16px;
+        opacity: 0.9;
+      }
+
+      .result-section.fail {
+        background: linear-gradient(135deg, #dc2626, #991b1b);
+      }
+
+      .summary-section {
+        background: #f0f8f0;
+        border: 2px solid #2d5016;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 25px;
+      }
+
+      .summary-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+
+      .summary-item {
+        text-align: center;
+        padding: 15px;
+        background: white;
+        border-radius: 6px;
+        border: 1px solid #ddd;
+      }
+
+      .summary-label {
+        font-size: 12px;
+        color: #666;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        font-weight: bold;
+      }
+
+      .summary-value {
+        font-size: 24px;
+        font-weight: bold;
+        color: #2d5016;
+      }
+
+      .button-group {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        margin-top: 30px;
+      }
+
+      button {
+        padding: 12px 30px;
+        font-size: 16px;
+        font-weight: bold;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: 0.3s;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      #calculateBtn {
+        background: #2d5016;
+        color: white;
+      }
+
+      #calculateBtn:hover {
+        background: #1a3009;
+        box-shadow: 0 4px 12px rgba(45, 80, 22, 0.3);
+        transform: translateY(-2px);
+      }
+
+      #downloadBtn {
+        background: #1e40af;
+        color: white;
+      }
+
+      #downloadBtn:hover {
+        background: #1e3a8a;
+        box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
+        transform: translateY(-2px);
+      }
+
+      .footer {
+        text-align: center;
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 2px solid #2d5016;
+        color: #666;
+        font-size: 12px;
+      }
+
+      .remarks-section {
+        margin-top: 25px;
+        padding: 20px;
+        background: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+      }
+
+      .remarks-label {
+        font-weight: bold;
+        color: #2d5016;
+        margin-bottom: 8px;
+      }
+
+      .remarks-text {
+        border: 1px solid #ddd;
+        padding: 10px;
+        border-radius: 4px;
+        min-height: 60px;
+        background: white;
+        color: #333;
+      }
+
+      /* Modal Styles */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+
+      .modal.show {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .modal-content {
+        background: white;
+        border-radius: 10px;
+        padding: 30px;
+        width: 95%;
+        max-width: 900px;
+        max-height: 90vh;
+        overflow-y: auto;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        position: relative;
+      }
+
+      .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #2d5016;
+        padding-bottom: 15px;
+      }
+
+      .modal-header h2 {
+        color: #2d5016;
+        margin: 0;
+        font-size: 24px;
+      }
+
+      .modal-close {
+        background: none;
+        border: none;
+        font-size: 28px;
+        cursor: pointer;
+        color: #666;
+        padding: 0;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: 0.3s;
+      }
+
+      .modal-close:hover {
+        background: #f0f0f0;
+        color: #2d5016;
+      }
+
+      .modal-body {
+        margin-bottom: 20px;
+      }
+
+      .pdf-preview {
+        background: #f9f9f9;
+        border: 1px solid #ddd;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+      }
+
+      .modal-footer {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+        border-top: 1px solid #ddd;
+        padding-top: 15px;
+      }
+
+      .modal-footer button {
+        padding: 10px 20px;
+        font-size: 14px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: 0.3s;
+        text-transform: uppercase;
+        font-weight: bold;
+        letter-spacing: 0.5px;
+      }
+
+      .btn-cancel {
+        background: #ddd;
+        color: #333;
+      }
+
+      .btn-cancel:hover {
+        background: #ccc;
+      }
+
+      .btn-download {
+        background: #2d5016;
+        color: white;
+      }
+
+      .btn-download:hover {
+        background: #1a3009;
+        box-shadow: 0 4px 12px rgba(45, 80, 22, 0.3);
+      }
+
+      @media (max-width: 768px) {
+        .report-card {
+          padding: 20px;
+        }
+
+        .student-info {
+          grid-template-columns: 1fr;
+          gap: 15px;
+        }
+
+        .summary-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .button-group {
+          flex-direction: column;
+        }
+
+        button {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="page-wrapper">
+      <div class="report-card">
+        <!-- Corner decorations -->
+        <div class="corner-decoration top-left"></div>
+        <div class="corner-decoration top-right"></div>
+        <div class="corner-decoration bottom-left"></div>
+        <div class="corner-decoration bottom-right"></div>
+
+        <!-- Header -->
+        <div class="header-section">
+          <div class="school-logo">🎓</div>
+          <h1>REPORT CARD</h1>
+          <p>A. Sravan Kumar School</p>
+          <p>Osmania University - MCA</p>
+          <p style="font-size: 12px; margin-top: 8px">CGPA Calculator</p>
+        </div>
+
+        <!-- Student Info -->
+        <div class="student-info">
+          <div>
+            <div class="info-row">
+              <span class="info-label">Student Name:</span>
+              <input
+                type="text"
+                class="input-field"
+                id="studentName"
+                placeholder="Enter name"
+              />
+            </div>
+            <div class="info-row">
+              <span class="info-label">Roll No:</span>
+              <input
+                type="text"
+                class="input-field"
+                id="rollNo"
+                placeholder="Enter roll no"
+              />
+            </div>
+          </div>
+          <div>
+            <div class="info-row">
+              <span class="info-label">Semester:</span>
+              <select
+                id="semesterSelect"
+                class="input-field"
+                style="padding: 8px; border: 1px solid #999; border-radius: 4px"
+                onchange="updateSubjects()"
+              >
+                <option value="">-- Select --</option>
+                <option value="all">All Semesters (1-4)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Grades Table -->
+        <table class="grades-table">
+          <thead>
+            <tr>
+              <th>Sub Code</th>
+              <th>Subject Name</th>
+              <th>Credits</th>
+              <th>Grade Secured</th>
+            </tr>
+          </thead>
+          <tbody id="rows">
+            <tr>
+              <td
+                colspan="4"
+                style="text-align: center; padding: 20px; color: #999"
+              >
+                Please select a semester
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Calculate Buttons -->
+        <div
+          style="
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+          "
+        >
+          <button
+            onclick="calculate()"
+            style="
+              padding: 10px;
+              background: #1e40af;
+              color: white;
+              border: none;
+              border-radius: 4px;
+              cursor: pointer;
+              font-weight: bold;
+            "
+          >
+            Calculate Overall
+          </button>
+        </div>
+
+        <!-- Result Section -->
+        <div id="result" class="result-section">
+          <div class="result-value" id="resultValue"></div>
+          <div class="result-label" id="resultLabel"></div>
+        </div>
+
+        <!-- Summary Section -->
+        <div class="summary-section" id="summarySection" style="display: none">
+          <div class="summary-grid">
+            <div class="summary-item">
+              <div class="summary-label">Total Subjects</div>
+              <div class="summary-value" id="totalSubjects">0</div>
+            </div>
+            <div class="summary-item">
+              <div class="summary-label">Total Credits</div>
+              <div class="summary-value" id="totalCredits">0</div>
+            </div>
+            <div class="summary-item">
+              <div class="summary-label">Performance</div>
+              <div class="summary-value" id="performance">-</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Remarks -->
+        <div class="remarks-section" id="remarksSection" style="display: none">
+          <div class="remarks-label">Remarks / Comments:</div>
+          <div class="remarks-text" id="remarksText"></div>
+        </div>
+
+        <!-- Target CGPA Calculator -->
+        <div
+          class="target-section"
+          id="targetSection"
+          style="
+            display: none;
+            margin-top: 30px;
+            padding: 20px;
+            background: #f0f8ff;
+            border: 2px solid #1e40af;
+            border-radius: 8px;
+          "
+        >
+          <div style="margin-bottom: 20px">
+            <h3 style="margin: 0 0 15px 0; color: #1e40af">
+              Semester 3 & 4 Target CGPA Calculator
+            </h3>
+            <p style="margin: 0 0 15px 0; color: #666; font-size: 14px">
+              Enter your target CGPA to see what scores you need in semesters 3
+              & 4
+            </p>
+
+            <div style="display: flex; gap: 10px; align-items: center">
+              <label style="font-weight: bold; color: #333">Target CGPA:</label>
+              <input
+                type="number"
+                id="targetCGPA"
+                placeholder="e.g., 8.5"
+                min="5"
+                max="10"
+                step="0.1"
+                style="
+                  padding: 8px;
+                  border: 1px solid #999;
+                  border-radius: 4px;
+                  width: 120px;
+                "
+              />
+              <button
+                onclick="calculateTargetScore()"
+                style="
+                  padding: 8px 20px;
+                  background: #1e40af;
+                  color: white;
+                  border: none;
+                  border-radius: 4px;
+                  cursor: pointer;
+                  font-weight: bold;
+                "
+              >
+                Calculate
+              </button>
+            </div>
+          </div>
+
+          <div
+            id="targetResult"
+            style="
+              display: none;
+              margin-top: 15px;
+              padding: 15px;
+              background: white;
+              border-left: 4px solid #1e40af;
+              border-radius: 4px;
+            "
+          >
+            <p
+              id="targetMessage"
+              style="margin: 0; color: #333; line-height: 1.6"
+            ></p>
+          </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="button-group">
+          <button id="calculateBtn" onclick="calculate()">
+            Calculate CGPA
+          </button>
+          <button id="downloadBtn" onclick="downloadPDF()">
+            Download Report
+          </button>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+          <p>
+            © School Report Card System | Generated on:
+            <span id="footerDate"></span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PDF Preview Modal -->
+    <div id="pdfModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>📄 Report Card Preview</h2>
+          <button class="modal-close" onclick="closePDFModal()">✕</button>
+        </div>
+        <div class="modal-body">
+          <div class="pdf-preview" id="pdfPreview"></div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-cancel" onclick="closePDFModal()">Cancel</button>
+          <button class="btn-download" onclick="finalDownloadPDF()">
+            Download PDF
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- jsPDF Library with autoTable plugin -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+
+    <script>
+      // Set current date
+      document.getElementById("footerDate").textContent =
+        new Date().toLocaleDateString();
+
+      const subjectsBySemester = {
+        1: [
+          {
+            code: "R24PCC101",
+            name: "Mathematical Foundations of Computer Science",
+            credits: 4,
+          },
+          { code: "R24PCC102", name: "Data Structures using C", credits: 4 },
+          {
+            code: "R24PCC103",
+            name: "Object Oriented Programming using Java",
+            credits: 4,
+          },
+          { code: "R24PCC104", name: "Computer Architecture", credits: 4 },
+          { code: "R24PCC105", name: "Probability and Statistics", credits: 4 },
+          {
+            code: "R24MGC106",
+            name: "Managerial Economics and Accountancy",
+            credits: 4,
+          },
+
+          // Labs
+          {
+            code: "R24LCC151",
+            name: "Data Structures using C Lab",
+            credits: 1.5,
+          },
+          { code: "R24LCC152", name: "Java Programming Lab", credits: 1.5 },
+          { code: "R24HSCI151", name: "Soft Skills Lab", credits: 1.5 },
+        ],
+
+        2: [
+          { code: "R24PCC201", name: "Operating Systems", credits: 4 },
+          {
+            code: "R24PCC202",
+            name: "Database Management Systems",
+            credits: 4,
+          },
+          {
+            code: "R24PCC203",
+            name: "Design and Analysis of Algorithms",
+            credits: 4,
+          },
+          {
+            code: "R24PCC204",
+            name: "Data Engineering with Python",
+            credits: 4,
+          },
+          { code: "R24PCC205", name: "Machine Learning", credits: 4 },
+          { code: "R24MGC206", name: "Operations Research", credits: 4 },
+
+          // Labs - Semester 2
+          { code: "R24LCC251", name: "Operating Systems Lab", credits: 1.5 },
+          {
+            code: "R24LCC252",
+            name: "Data Engineering with Python Lab",
+            credits: 1.5,
+          },
+          {
+            code: "R24LCC253",
+            name: "Database Management Systems Lab",
+            credits: 1.5,
+          },
+        ],
+
+        3: [
+          // Core subjects - Semester 3
+          { code: "PCC301", name: "Software Engineering", credits: 4 },
+          { code: "PCC302", name: "Computer Networks", credits: 4 },
+          { code: "PCC303", name: "Artificial Intelligence", credits: 4 },
+          { code: "PCC304", name: "Full Stack Development", credits: 4 },
+
+          // Professional Electives - Semester 3
+          { code: "PEC312", name: "Distributed Systems", credits: 3 },
+          { code: "PEC321", name: "Network Security", credits: 3 },
+
+          // Labs - Semester 3
+          { code: "LCC351", name: "Computer Networks Lab", credits: 1.5 },
+          { code: "LCC352", name: "Software Engineering Lab", credits: 1.5 },
+          { code: "LCC353", name: "Full Stack Development Lab", credits: 1.5 },
+
+          // Internship - Semester 3
+          { code: "SIP321", name: "Summer Internship", credits: 1.5 },
+        ],
+
+        4: [
+          // Electives - Semester 4
+          { code: "P1", name: "Elective/Subject 1", credits: 3 },
+          { code: "P2", name: "Software Engineering", credits: 3 },
+          { code: "P3", name: "Operating Systems", credits: 3 },
+
+          // Project - Semester 4
+          { code: "PROJ401", name: "Project Work", credits: 12 },
+        ],
+      };
+
+      let subjects = [];
+      const points = { S: 10, A: 9, B: 8, C: 7, D: 6, E: 5, F: 0 };
+
+      // Update subjects based on selected semester
+      function updateSubjects() {
+        const semesterSelect = document.getElementById("semesterSelect").value;
+        const rows = document.getElementById("rows");
+
+        if (!semesterSelect) {
+          rows.innerHTML =
+            "<tr><td colspan='4' style='text-align: center; padding: 20px; color: #999;'>Please select semesters</td></tr>";
+          return;
+        }
+
+        rows.innerHTML = "";
+        let rowIndex = 0;
+
+        // Show all semesters combined
+        for (let sem = 1; sem <= 4; sem++) {
+          // Add semester header with Calculate button
+          rows.innerHTML += `
+            <tr style="background: #2d5016; color: white; font-weight: bold;">
+              <td colspan="3" style="padding: 10px; text-align: left;">Semester ${sem}</td>
+              <td style="padding: 10px; text-align: center;">
+                <button onclick="calculateSemester(${sem})" style="padding: 5px 10px; background: #1e40af; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold;">Calculate</button>
+              </td>
+            </tr>
+          `;
+
+          subjectsBySemester[sem].forEach((s) => {
+            rows.innerHTML += `
+              <tr style="background: ${sem % 2 === 0 ? "#f9f9f9" : "#fff"};">
+                <td>${s.code}</td>
+                <td>${s.name}</td>
+                <td>${s.credits}</td>
+                <td>
+                  <select class="grade-select" id="g${rowIndex}" onchange="updatePreview()">
+                    <option value="">Select</option>
+                    <option>S</option>
+                    <option>A</option>
+                    <option>B</option>
+                    <option>C</option>
+                    <option>D</option>
+                    <option>E</option>
+                    <option>F</option>
+                  </select>
+                </td>
+              </tr>
+            `;
+            rowIndex++;
+          });
+        }
+        subjects = [];
+        for (let sem = 1; sem <= 4; sem++) {
+          subjects = subjects.concat(subjectsBySemester[sem]);
+        }
+
+        // Show target section
+        document.getElementById("targetSection").style.display = "block";
+      }
+
+      function updatePreview() {
+        // Real-time preview update
+      }
+
+      function calculateTargetScore() {
+        const targetCGPA = parseFloat(
+          document.getElementById("targetCGPA").value
+        );
+
+        if (!targetCGPA || targetCGPA < 5 || targetCGPA > 10) {
+          alert("Please enter a valid target CGPA between 5 and 10");
+          return;
+        }
+
+        // Calculate sem 1 & 2 totals
+        let sem12Total = 0,
+          sem12PointsTotal = 0;
+
+        for (let sem = 1; sem <= 2; sem++) {
+          let semIdx = 0;
+          for (let s = 1; s < sem; s++) {
+            semIdx += subjectsBySemester[s].length;
+          }
+
+          subjectsBySemester[sem].forEach((s) => {
+            const grade = document.getElementById(`g${semIdx}`).value;
+            if (grade && grade !== "F") {
+              sem12Total += s.credits;
+              sem12PointsTotal += s.credits * points[grade];
+            }
+            semIdx++;
+          });
+        }
+
+        if (sem12Total === 0) {
+          alert("Please enter grades for semesters 1 & 2 first");
+          return;
+        }
+
+        // Calculate individual semester CGPAs
+        let sem1Total = 0,
+          sem1Points = 0;
+        let sem2Total = 0,
+          sem2Points = 0;
+
+        // Semester 1
+        subjectsBySemester[1].forEach((s, idx) => {
+          const grade = document.getElementById(`g${idx}`).value;
+          if (grade && grade !== "F") {
+            sem1Total += s.credits;
+            sem1Points += s.credits * points[grade];
+          }
+        });
+
+        // Semester 2
+        let sem2Idx = subjectsBySemester[1].length;
+        subjectsBySemester[2].forEach((s) => {
+          const grade = document.getElementById(`g${sem2Idx}`).value;
+          if (grade && grade !== "F") {
+            sem2Total += s.credits;
+            sem2Points += s.credits * points[grade];
+          }
+          sem2Idx++;
+        });
+
+        // Calculate sem 3 & 4 requirements
+        let sem34Total = 0;
+        for (let sem = 3; sem <= 4; sem++) {
+          subjectsBySemester[sem].forEach((s) => {
+            sem34Total += s.credits;
+          });
+        }
+
+        // Formula: targetCGPA = (sem12Points + sem34Points) / (sem12Total + sem34Total)
+        // sem34Points = targetCGPA * (sem12Total + sem34Total) - sem12PointsTotal
+        const requiredPoints =
+          targetCGPA * (sem12Total + sem34Total) - sem12PointsTotal;
+        const requiredGPA = requiredPoints / sem34Total;
+
+        let message = `<div style="margin-bottom: 20px;">`;
+        message += `<strong style="font-size: 16px; color: #2d5016;">Individual Semester Performance:</strong><br><br>`;
+
+        // Semester 1
+        const sem1CGPA =
+          sem1Total > 0 ? (sem1Points / sem1Total).toFixed(2) : "N/A";
+        message += `<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px;">`;
+        message += `<div style="background: #e8f4f8; padding: 10px; border-left: 4px solid #2d5016; border-radius: 4px;">`;
+        message += `<p style="margin: 0; font-weight: bold; color: #2d5016;">Semester 1</p>`;
+        message += `<p style="margin: 5px 0 0 0; font-size: 18px; color: #1e40af; font-weight: bold;">${sem1CGPA}</p>`;
+        message += `</div>`;
+
+        // Semester 2
+        const sem2CGPA =
+          sem2Total > 0 ? (sem2Points / sem2Total).toFixed(2) : "N/A";
+        message += `<div style="background: #e8f4f8; padding: 10px; border-left: 4px solid #2d5016; border-radius: 4px;">`;
+        message += `<p style="margin: 0; font-weight: bold; color: #2d5016;">Semester 2</p>`;
+        message += `<p style="margin: 5px 0 0 0; font-size: 18px; color: #1e40af; font-weight: bold;">${sem2CGPA}</p>`;
+        message += `</div>`;
+        message += `</div>`;
+
+        message += `<strong style="font-size: 14px; color: #2d5016;">Target CGPA: ${targetCGPA}</strong><br><br>`;
+        message += `<strong style="color: #2d5016;">What you need in Semesters 3 & 4:</strong><br>`;
+        message += `• Total Credits: ${sem34Total}<br>`;
+        message += `• Required Average GPA: <strong style="color: #1e40af; font-size: 14px;">${requiredGPA.toFixed(
+          2
+        )}</strong><br><br>`;
+
+        // Grade equivalent
+        let gradeNeeded = "";
+        if (requiredGPA >= 9) gradeNeeded = "S (Excellent)";
+        else if (requiredGPA >= 8) gradeNeeded = "A (Very Good)";
+        else if (requiredGPA >= 7) gradeNeeded = "B (Good)";
+        else if (requiredGPA >= 6) gradeNeeded = "C (Satisfactory)";
+        else if (requiredGPA >= 5) gradeNeeded = "D (Pass)";
+        else gradeNeeded = "Below Pass";
+
+        message += `Grade Equivalent: <strong style="color: #1e40af;">${gradeNeeded}</strong><br><br>`;
+
+        // Calculate what overall CGPA would be
+        const overallCGPA = (
+          (sem12PointsTotal + requiredPoints) /
+          (sem12Total + sem34Total)
+        ).toFixed(2);
+        message += `<strong style="color: #2d5016;">Overall Result (Sem 1-4 Combined):</strong><br>`;
+        message += `<p style="margin: 5px 0; font-size: 16px; color: #2d5016; font-weight: bold;">Final CGPA: ${overallCGPA}</p><br>`;
+
+        if (requiredGPA > 10) {
+          message += `<span style="color: #c33;">⚠️ Target CGPA is not achievable with the current sem 1-2 performance</span>`;
+        } else if (requiredGPA >= 9) {
+          message += `<span style="color: #1e40af;">✓ You need excellent performance in semesters 3-4 to achieve this target</span>`;
+        } else if (requiredGPA >= 7) {
+          message += `<span style="color: #2d5016;">✓ This target is achievable with good performance in semesters 3-4</span>`;
+        } else {
+          message += `<span style="color: #2d5016;">✓ This target should be easily achievable in semesters 3-4</span>`;
+        }
+
+        message += `</div>`;
+
+        document.getElementById("targetResult").style.display = "block";
+        document.getElementById("targetMessage").innerHTML = message;
+      }
+
+      function calculateSemester(semNum) {
+        let semTotal = 0,
+          semPointsTotal = 0,
+          semCount = 0,
+          semFailed = false;
+
+        // Calculate starting index for this semester
+        let startIdx = 0;
+        for (let s = 1; s < semNum; s++) {
+          startIdx += subjectsBySemester[s].length;
+        }
+
+        // Calculate CGPA for specific semester
+        subjectsBySemester[semNum].forEach((s, idx) => {
+          const grade = document.getElementById(`g${startIdx + idx}`).value;
+
+          if (!grade) return;
+
+          semCount++;
+
+          if (grade === "F") {
+            semFailed = true;
+            return;
+          }
+
+          semTotal += s.credits;
+          semPointsTotal += s.credits * points[grade];
+        });
+
+        if (semCount === 0) {
+          alert(`Please enter grades for Semester ${semNum}`);
+          return;
+        }
+
+        if (semFailed) {
+          alert(
+            `Semester ${semNum} has a failed grade. Please retake the course.`
+          );
+          return;
+        }
+
+        const semCGPA = (semPointsTotal / semTotal).toFixed(2);
+        let gradeRange = "";
+
+        if (semCGPA >= 9) gradeRange = "Excellent (A+)";
+        else if (semCGPA >= 8) gradeRange = "Very Good (A)";
+        else if (semCGPA >= 7) gradeRange = "Good (B)";
+        else if (semCGPA >= 6) gradeRange = "Satisfactory (C)";
+        else if (semCGPA >= 5) gradeRange = "Pass (D)";
+        else gradeRange = "Need Improvement";
+
+        // Show result
+        document.getElementById("result").classList.remove("fail");
+        document.getElementById("result").classList.add("show");
+        document.getElementById("resultValue").textContent = semCGPA;
+        document.getElementById(
+          "resultLabel"
+        ).textContent = `${gradeRange} - Semester ${semNum}`;
+
+        // Show summary
+        document.getElementById("summarySection").style.display = "block";
+        document.getElementById("totalSubjects").textContent = semCount;
+        document.getElementById("totalCredits").textContent =
+          semTotal.toFixed(1);
+        document.getElementById("performance").textContent = gradeRange;
+
+        // Show remarks
+        document.getElementById("remarksSection").style.display = "block";
+        let remarks = "";
+        if (semCGPA >= 9)
+          remarks = "Outstanding performance! Keep up the excellent work.";
+        else if (semCGPA >= 8)
+          remarks =
+            "Excellent performance. Continue to maintain this standard.";
+        else if (semCGPA >= 7)
+          remarks = "Good performance. Strive to improve further.";
+        else if (semCGPA >= 6)
+          remarks = "Satisfactory performance. More effort is required.";
+        else if (semCGPA >= 5)
+          remarks = "Passed. Extra effort and focus needed.";
+        else remarks = "Performance needs significant improvement.";
+        document.getElementById("remarksText").textContent = remarks;
+      }
+
+      function calculate() {
+        // Calculate CGPA for all semesters
+        calculateBySemester();
+      }
+
+      function calculateBySemester() {
+        let allResultsHTML = `<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">`;
+        let overallTotal = 0,
+          overallPointsTotal = 0;
+        let hasAnyData = false;
+
+        for (let sem = 1; sem <= 4; sem++) {
+          let semTotal = 0,
+            semPointsTotal = 0,
+            semCount = 0,
+            semFailed = false;
+
+          subjectsBySemester[sem].forEach((s, idx) => {
+            // Calculate overall row index for all semesters
+            let globalIdx = 0;
+            for (let s = 1; s < sem; s++) {
+              globalIdx += subjectsBySemester[s].length;
+            }
+            globalIdx += idx;
+
+            const grade = document.getElementById(`g${globalIdx}`).value;
+            if (!grade) return;
+
+            semCount++;
+            hasAnyData = true;
+
+            if (grade === "F") {
+              semFailed = true;
+              return;
+            }
+
+            semTotal += s.credits;
+            semPointsTotal += s.credits * points[grade];
+          });
+
+          if (semCount > 0) {
+            overallTotal += semTotal;
+            overallPointsTotal += semPointsTotal;
+
+            if (semFailed) {
+              allResultsHTML += `
+                <div style="background: #fee; border: 2px solid #c33; padding: 15px; border-radius: 8px; text-align: center;">
+                  <p style="margin: 0 0 10px 0; font-weight: bold; color: #c33;">Semester ${sem}</p>
+                  <p style="margin: 0; font-size: 18px; font-weight: bold; color: #c33;">FAILED</p>
+                  <p style="margin: 5px 0 0 0; font-size: 12px; color: #666;">Retake required</p>
+                </div>
+              `;
+            } else {
+              const semCGPA = (semPointsTotal / semTotal).toFixed(2);
+              let semGrade = "";
+              if (semCGPA >= 9) semGrade = "A+";
+              else if (semCGPA >= 8) semGrade = "A";
+              else if (semCGPA >= 7) semGrade = "B";
+              else if (semCGPA >= 6) semGrade = "C";
+              else if (semCGPA >= 5) semGrade = "D";
+              else semGrade = "E";
+
+              allResultsHTML += `
+                <div style="background: #f0f8ff; border: 2px solid #2d5016; padding: 15px; border-radius: 8px; text-align: center;">
+                  <p style="margin: 0 0 10px 0; font-weight: bold; color: #2d5016;">Semester ${sem}</p>
+                  <p style="margin: 0; font-size: 24px; font-weight: bold; color: #2d5016;">${semCGPA}</p>
+                  <p style="margin: 5px 0 0 0; font-size: 12px; color: #666;">Grade: ${semGrade}</p>
+                </div>
+              `;
+            }
+          }
+        }
+
+        allResultsHTML += `</div>`;
+
+        if (!hasAnyData) {
+          document.getElementById("result").classList.remove("show");
+          document.getElementById("summarySection").style.display = "none";
+          document.getElementById("remarksSection").style.display = "none";
+          return;
+        }
+
+        // Show overall result
+        if (overallTotal > 0) {
+          const overallCGPA = (overallPointsTotal / overallTotal).toFixed(2);
+          let gradeRange = "";
+          let remarks = "";
+
+          if (overallCGPA >= 9) {
+            gradeRange = "Excellent (A+)";
+            remarks = "Outstanding performance across all semesters!";
+          } else if (overallCGPA >= 8) {
+            gradeRange = "Very Good (A)";
+            remarks = "Excellent overall performance. Keep it up!";
+          } else if (overallCGPA >= 7) {
+            gradeRange = "Good (B)";
+            remarks = "Good performance. Continue to improve.";
+          } else if (overallCGPA >= 6) {
+            gradeRange = "Satisfactory (C)";
+            remarks = "Satisfactory overall performance.";
+          } else if (overallCGPA >= 5) {
+            gradeRange = "Pass (D)";
+            remarks = "Passed overall. More focus needed.";
+          } else {
+            gradeRange = "Need Improvement";
+            remarks = "Overall performance needs improvement.";
+          }
+
+          const resultDiv = document.getElementById("result");
+          resultDiv.classList.remove("fail");
+          resultDiv.classList.add("show");
+          document.getElementById("resultValue").textContent = overallCGPA;
+          document.getElementById("resultLabel").textContent = gradeRange;
+
+          document.getElementById("summarySection").style.display = "block";
+          document.getElementById("totalSubjects").textContent = "All";
+          document.getElementById("totalCredits").textContent = "See below";
+          document.getElementById("performance").textContent = gradeRange;
+          // Show semester results
+          document.getElementById("remarksSection").style.display = "block";
+          document.getElementById("remarksText").innerHTML =
+            allResultsHTML +
+            `<p style="margin-top: 15px; text-align: center; font-style: italic; color: #666;">${remarks}</p>`;
+        }
+      }
+
+      // PDF Report (Professional School-Style Report Card)
+      function downloadPDF() {
+        const studentName =
+          document.getElementById("studentName").value || "Student";
+        const rollNo = document.getElementById("rollNo").value || "N/A";
+        const className =
+          document.getElementById("studentClass").value || "N/A";
+        const resultText = document.getElementById("resultValue").textContent;
+
+        if (!resultText) {
+          alert("Please calculate CGPA first before downloading the report.");
+          return;
+        }
+
+        // Generate preview HTML
+        generatePDFPreview(studentName, rollNo, className);
+
+        // Show modal
+        document.getElementById("pdfModal").classList.add("show");
+      }
+
+      function generatePDFPreview(studentName, rollNo, className) {
+        const reportDate = document.getElementById("reportDate").value;
+        const resultValue = document.getElementById("resultValue").textContent;
+        const resultLabel = document.getElementById("resultLabel").textContent;
+        const remarksText = document.getElementById("remarksText").textContent;
+
+        let tableRows = "";
+        subjects.forEach((s, i) => {
+          const grade = document.getElementById(`g${i}`).value || "-";
+          tableRows += `
+            <tr>
+              <td style="border: 1px solid #ddd; padding: 10px; text-align: center;">${s.code}</td>
+              <td style="border: 1px solid #ddd; padding: 10px; text-align: left;">${s.name}</td>
+              <td style="border: 1px solid #ddd; padding: 10px; text-align: center;">${s.credits}</td>
+              <td style="border: 1px solid #ddd; padding: 10px; text-align: center; font-weight: bold; color: #2d5016;">${grade}</td>
+            </tr>
+          `;
+        });
+
+        const previewHTML = `
+          <div style="background: white; padding: 30px; border: 2px solid #2d5016; border-radius: 8px;">
+            <div style="text-align: center; margin-bottom: 25px;">
+              <h1 style="color: #2d5016; margin: 0; font-size: 28px;">REPORT CARD</h1>
+              <p style="color: #666; margin: 5px 0; font-size: 12px;">School Report Card System</p>
+            </div>
+
+            <div style="margin-bottom: 20px; background: #f9f9f9; padding: 15px; border-left: 4px solid #2d5016;">
+              <table style="width: 100%; font-size: 14px;">
+                <tr>
+                  <td style="padding: 5px 0;"><strong>Student Name:</strong> ${studentName}</td>
+                  <td style="padding: 5px 0;"><strong>Roll No:</strong> ${rollNo}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 5px 0;"><strong>Class:</strong> ${className}</td>
+                  <td style="padding: 5px 0;"><strong>Date:</strong> ${reportDate}</td>
+                </tr>
+              </table>
+            </div>
+
+            <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+              <thead>
+                <tr style="background: #2d5016; color: white;">
+                  <th style="border: 1px solid #1a3009; padding: 12px; font-weight: bold;">Sub Code</th>
+                  <th style="border: 1px solid #1a3009; padding: 12px; font-weight: bold;">Subject Name</th>
+                  <th style="border: 1px solid #1a3009; padding: 12px; font-weight: bold;">Credits</th>
+                  <th style="border: 1px solid #1a3009; padding: 12px; font-weight: bold;">Grade Secured</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${tableRows}
+              </tbody>
+            </table>
+
+            <div style="background: linear-gradient(135deg, #2d5016, #3a6b1f); color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+              <div style="text-align: center;">
+                <p style="margin: 0; font-size: 14px; opacity: 0.9;">CGPA Score</p>
+                <p style="margin: 10px 0; font-size: 36px; font-weight: bold;">${resultValue}</p>
+                <p style="margin: 0; font-size: 14px; opacity: 0.9;">Performance: ${resultLabel}</p>
+              </div>
+            </div>
+
+            <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; border: 1px solid #ddd;">
+              <p style="margin: 0 0 10px 0; color: #2d5016; font-weight: bold;">Remarks / Comments:</p>
+              <p style="margin: 0; color: #333; line-height: 1.6;">${remarksText}</p>
+            </div>
+
+            <div style="text-align: center; margin-top: 25px; border-top: 1px solid #ddd; padding-top: 15px; font-size: 11px; color: #999;">
+              © School Report Card System | Generated on: ${new Date().toLocaleString()}
+            </div>
+          </div>
+        `;
+
+        document.getElementById("pdfPreview").innerHTML = previewHTML;
+      }
+
+      function closePDFModal() {
+        document.getElementById("pdfModal").classList.remove("show");
+      }
+
+      function finalDownloadPDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF("p", "mm", "a4");
+
+        const studentName =
+          document.getElementById("studentName").value || "Student";
+        const rollNo = document.getElementById("rollNo").value || "N/A";
+        const className =
+          document.getElementById("studentClass").value || "N/A";
+
+        // Title
+        doc.setFontSize(20);
+        doc.setTextColor(45, 80, 22);
+        doc.text("REPORT CARD", 105, 20, { align: "center" });
+
+        doc.setFontSize(11);
+        doc.setTextColor(100, 100, 100);
+        doc.text("School Report Card System", 105, 27, { align: "center" });
+
+        // Student Info
+        doc.setFontSize(11);
+        doc.setTextColor(0, 0, 0);
+        doc.text(`Student Name: ${studentName}`, 20, 40);
+        doc.text(`Roll No: ${rollNo}`, 110, 40);
+        doc.text(`Class: ${className}`, 20, 47);
+        doc.text(
+          `Date: ${document.getElementById("reportDate").value}`,
+          110,
+          47
+        );
+
+        // Table Header
+        const tableData = [];
+        subjects.forEach((s, i) => {
+          const grade = document.getElementById(`g${i}`).value || "-";
+          tableData.push([s.code, s.name, s.credits, grade]);
+        });
+
+        doc.autoTable({
+          head: [["Sub Code", "Subject Name", "Credits", "Grade Secured"]],
+          body: tableData,
+          startY: 55,
+          margin: 20,
+          headStyles: {
+            fillColor: [45, 80, 22],
+            textColor: [255, 255, 255],
+            fontStyle: "bold",
+          },
+          bodyStyles: {
+            textColor: [0, 0, 0],
+          },
+          alternateRowStyles: {
+            fillColor: [245, 245, 245],
+          },
+        });
+
+        // Get result info
+        const resultText = document.getElementById("resultValue").textContent;
+        const resultLabel = document.getElementById("resultLabel").textContent;
+        let remarksText = document.getElementById("remarksText").textContent;
+
+        if (resultText && resultText !== "") {
+          const yPosition = doc.lastAutoTable.finalY + 15;
+
+          doc.setFontSize(14);
+          doc.setTextColor(45, 80, 22);
+          doc.text("CGPA:", 20, yPosition);
+
+          doc.setFontSize(16);
+          doc.setTextColor(45, 80, 22);
+          doc.text(resultText, 50, yPosition);
+
+          doc.setFontSize(11);
+          doc.setTextColor(100, 100, 100);
+          doc.text(`Performance: ${resultLabel}`, 20, yPosition + 10);
+
+          // Remarks
+          doc.setFontSize(11);
+          doc.setTextColor(45, 80, 22);
+          doc.text("Remarks:", 20, yPosition + 20);
+
+          doc.setFontSize(10);
+          doc.setTextColor(0, 0, 0);
+          const splitRemarks = doc.splitTextToSize(remarksText, 170);
+          doc.text(splitRemarks, 20, yPosition + 27);
+        }
+
+        // Footer
+        doc.setFontSize(9);
+        doc.setTextColor(150, 150, 150);
+        doc.text(
+          "© School Report Card System | Generated on: " +
+            new Date().toLocaleString(),
+          105,
+          285,
+          { align: "center" }
+        );
+
+        // Save PDF
+        doc.save(`Report_Card_${studentName}.pdf`);
+
+        // Close modal
+        closePDFModal();
+      }
+
+      // Close modal when clicking outside
+      window.onclick = function (event) {
+        const modal = document.getElementById("pdfModal");
+        if (event.target === modal) {
+          closePDFModal();
+        }
+      };
+    </script>
+  </body>
+</html>
