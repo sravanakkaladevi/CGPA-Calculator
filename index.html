@@ -13,7 +13,7 @@
 
       body {
         font-family: Arial, sans-serif;
-        background: linear-gradient(135deg, #f5f5f5, #e8e8e8);
+        background-color: #faf0d8;
         padding: 30px;
         color: #333;
       }
@@ -25,70 +25,27 @@
 
       .report-card {
         background: white;
-        border: 3px solid #2d5016;
-        border-radius: 10px;
+        border: 2px solid #111111;
         padding: 40px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-        position: relative;
-      }
-
-      /* Decorative corner elements */
-      .corner-decoration {
-        position: absolute;
-        width: 30px;
-        height: 30px;
-        border: 3px solid #2d5016;
-      }
-
-      .corner-decoration.top-left {
-        top: 15px;
-        left: 15px;
-        border-right: none;
-        border-bottom: none;
-      }
-
-      .corner-decoration.top-right {
-        top: 15px;
-        right: 15px;
-        border-left: none;
-        border-bottom: none;
-      }
-
-      .corner-decoration.bottom-left {
-        bottom: 15px;
-        left: 15px;
-        border-right: none;
-        border-top: none;
-      }
-
-      .corner-decoration.bottom-right {
-        bottom: 15px;
-        right: 15px;
-        border-left: none;
-        border-top: none;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       }
 
       .header-section {
         text-align: center;
         margin-bottom: 30px;
-        border-bottom: 3px solid #2d5016;
+        border-bottom: 2px solid #edc987;
         padding-bottom: 20px;
       }
 
-      .school-logo {
-        font-size: 40px;
-        margin-bottom: 10px;
-      }
-
       .header-section h1 {
-        font-size: 28px;
+        font-size: 18px;
         font-weight: bold;
-        color: #2d5016;
+        color: #333;
         margin-bottom: 5px;
       }
 
       .header-section p {
-        font-size: 14px;
+        font-size: 12px;
         color: #666;
         margin: 3px 0;
       }
@@ -96,12 +53,11 @@
       .student-info {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 30px;
+        gap: 20px;
         margin-bottom: 30px;
-        background: #f9f9f9;
+        background: #fefcf5;
         padding: 20px;
-        border-radius: 8px;
-        border-left: 4px solid #2d5016;
+        border: 1px solid #ddd;
       }
 
       .info-row {
@@ -113,8 +69,10 @@
 
       .info-label {
         font-weight: bold;
-        color: #2d5016;
+        color: #333;
         min-width: 100px;
+        background-color: #fefcf5;
+        padding: 5px;
       }
 
       .info-value {
@@ -122,37 +80,39 @@
       }
 
       .input-field {
-        border: none;
-        border-bottom: 1px solid #999;
-        padding: 5px;
+        border: 1px solid #999;
+        border-radius: 3px;
+        padding: 8px;
         width: 100%;
-        background: transparent;
+        background: white;
         font-family: Arial;
+        font-size: 13px;
       }
 
       .input-field:focus {
         outline: none;
-        border-bottom: 2px solid #2d5016;
+        border: 1px solid #edc987;
+        background-color: #fffef5;
       }
 
       .grades-table {
         width: 100%;
         border-collapse: collapse;
         margin-bottom: 25px;
-        border: 2px solid #2d5016;
+        border: 2px solid #111111;
       }
 
       .grades-table thead {
-        background: #2d5016;
-        color: white;
+        background: #edc987;
+        color: #333;
       }
 
       .grades-table th {
-        padding: 15px;
+        padding: 12px;
         text-align: center;
         font-weight: bold;
-        font-size: 14px;
-        border: 1px solid #1a3009;
+        font-size: 13px;
+        border: 1px solid #111111;
       }
 
       .grades-table td {
@@ -163,17 +123,28 @@
       }
 
       .grades-table tbody tr:nth-child(even) {
-        background: #f9f9f9;
+        background: #fefcf5;
       }
 
       .grades-table tbody tr:hover {
-        background: #f0f8f0;
+        background: #f5f0e8;
+      }
+
+      .semester-header {
+        background: #edc987;
+        color: #333;
+        font-weight: bold;
+        border: 1px solid #111111;
+      }
+
+      .semester-header td {
+        padding: 10px;
       }
 
       .grade-select {
         padding: 6px 10px;
-        border: 1px solid #2d5016;
-        border-radius: 4px;
+        border: 1px solid #999;
+        border-radius: 3px;
         background: white;
         color: #333;
         font-weight: bold;
@@ -183,14 +154,15 @@
 
       .grade-select:focus {
         outline: none;
-        box-shadow: 0 0 0 3px rgba(45, 80, 22, 0.2);
+        border-color: #edc987;
+        background-color: #fffef5;
       }
 
       .result-section {
-        background: linear-gradient(135deg, #2d5016, #3a6b1f);
-        color: white;
+        background: linear-gradient(135deg, #edc987, #d4b878);
+        color: #333;
         padding: 25px;
-        border-radius: 8px;
+        border: 2px solid #111111;
         text-align: center;
         margin-bottom: 25px;
         display: none;
@@ -204,36 +176,41 @@
         font-size: 48px;
         font-weight: bold;
         margin-bottom: 10px;
+        color: #2d5016;
       }
 
       .result-label {
         font-size: 16px;
-        opacity: 0.9;
+        color: #333;
       }
 
       .result-section.fail {
-        background: linear-gradient(135deg, #dc2626, #991b1b);
+        background: linear-gradient(135deg, #ffcccc, #ff9999);
+        border-color: #dc2626;
+      }
+
+      .result-section.fail .result-value {
+        color: #c33;
       }
 
       .summary-section {
-        background: #f0f8f0;
-        border: 2px solid #2d5016;
+        background: #fefcf5;
+        border: 2px solid #111111;
         padding: 20px;
-        border-radius: 8px;
         margin-bottom: 25px;
+        display: none;
       }
 
       .summary-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
+        gap: 15px;
       }
 
       .summary-item {
         text-align: center;
         padding: 15px;
         background: white;
-        border-radius: 6px;
         border: 1px solid #ddd;
       }
 
@@ -248,80 +225,80 @@
       .summary-value {
         font-size: 24px;
         font-weight: bold;
-        color: #2d5016;
+        color: #333;
       }
 
       .button-group {
-        display: flex;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
         gap: 15px;
-        justify-content: center;
-        margin-top: 30px;
+        margin: 30px 0;
       }
 
       button {
-        padding: 12px 30px;
-        font-size: 16px;
+        padding: 12px 20px;
+        font-size: 14px;
         font-weight: bold;
-        border: none;
-        border-radius: 6px;
+        border: 1px solid #111111;
+        border-radius: 4px;
         cursor: pointer;
         transition: 0.3s;
         text-transform: uppercase;
         letter-spacing: 0.5px;
+        background: white;
       }
 
       #calculateBtn {
-        background: #2d5016;
-        color: white;
+        background: #edc987;
+        color: #333;
       }
 
       #calculateBtn:hover {
-        background: #1a3009;
-        box-shadow: 0 4px 12px rgba(45, 80, 22, 0.3);
-        transform: translateY(-2px);
+        background: #d4b878;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
       }
 
       #downloadBtn {
-        background: #1e40af;
-        color: white;
+        background: #edc987;
+        color: #333;
       }
 
       #downloadBtn:hover {
-        background: #1e3a8a;
-        box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
-        transform: translateY(-2px);
+        background: #d4b878;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
       }
 
       .footer {
         text-align: center;
         margin-top: 30px;
         padding-top: 20px;
-        border-top: 2px solid #2d5016;
+        border-top: 2px solid #edc987;
         color: #666;
-        font-size: 12px;
+        font-size: 11px;
       }
 
       .remarks-section {
         margin-top: 25px;
         padding: 20px;
-        background: #f9f9f9;
+        background: #fefcf5;
         border: 1px solid #ddd;
-        border-radius: 6px;
+        display: none;
       }
 
       .remarks-label {
         font-weight: bold;
-        color: #2d5016;
+        color: #333;
         margin-bottom: 8px;
       }
 
       .remarks-text {
         border: 1px solid #ddd;
         padding: 10px;
-        border-radius: 4px;
         min-height: 60px;
         background: white;
         color: #333;
+        font-size: 13px;
+        line-height: 1.6;
       }
 
       /* Modal Styles */
@@ -344,14 +321,13 @@
 
       .modal-content {
         background: white;
-        border-radius: 10px;
+        border: 2px solid #111111;
         padding: 30px;
         width: 95%;
         max-width: 900px;
         max-height: 90vh;
         overflow-y: auto;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-        position: relative;
       }
 
       .modal-header {
@@ -359,46 +335,35 @@
         justify-content: space-between;
         align-items: center;
         margin-bottom: 20px;
-        border-bottom: 2px solid #2d5016;
+        border-bottom: 2px solid #edc987;
         padding-bottom: 15px;
       }
 
       .modal-header h2 {
-        color: #2d5016;
+        color: #333;
         margin: 0;
-        font-size: 24px;
+        font-size: 20px;
       }
 
       .modal-close {
         background: none;
         border: none;
-        font-size: 28px;
+        font-size: 24px;
         cursor: pointer;
         color: #666;
         padding: 0;
         width: 40px;
         height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        transition: 0.3s;
       }
 
       .modal-close:hover {
-        background: #f0f0f0;
-        color: #2d5016;
-      }
-
-      .modal-body {
-        margin-bottom: 20px;
+        color: #333;
       }
 
       .pdf-preview {
-        background: #f9f9f9;
+        background: #fefcf5;
         border: 1px solid #ddd;
         padding: 20px;
-        border-radius: 8px;
         margin-bottom: 20px;
       }
 
@@ -412,33 +377,119 @@
 
       .modal-footer button {
         padding: 10px 20px;
-        font-size: 14px;
-        border: none;
-        border-radius: 6px;
+        font-size: 13px;
+        border: 1px solid #999;
+        border-radius: 4px;
         cursor: pointer;
-        transition: 0.3s;
-        text-transform: uppercase;
-        font-weight: bold;
-        letter-spacing: 0.5px;
-      }
-
-      .btn-cancel {
-        background: #ddd;
-        color: #333;
+        background: white;
       }
 
       .btn-cancel:hover {
-        background: #ccc;
+        background: #f5f5f5;
       }
 
       .btn-download {
-        background: #2d5016;
-        color: white;
+        background: #edc987;
+        border-color: #111111;
       }
 
       .btn-download:hover {
-        background: #1a3009;
-        box-shadow: 0 4px 12px rgba(45, 80, 22, 0.3);
+        background: #d4b878;
+      }
+
+      .target-section {
+        display: none;
+        margin-top: 30px;
+        padding: 20px;
+        background: #fefcf5;
+        border: 2px solid #111111;
+      }
+
+      .target-section h3 {
+        margin: 0 0 15px 0;
+        color: #333;
+        font-size: 16px;
+      }
+
+      .target-section p {
+        margin: 0 0 15px 0;
+        color: #666;
+        font-size: 13px;
+      }
+
+      #targetResult {
+        display: none;
+        margin-top: 15px;
+        padding: 15px;
+        background: white;
+        border-left: 4px solid #edc987;
+      }
+
+      .sem34-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        margin-top: 15px;
+      }
+
+      .sem34-card {
+        background: white;
+        padding: 15px;
+        border-left: 4px solid #edc987;
+        border-radius: 3px;
+        border: 1px solid #ddd;
+      }
+
+      .sem34-title {
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 10px;
+        font-size: 13px;
+      }
+
+      .sem34-value {
+        font-size: 20px;
+        font-weight: bold;
+        color: #2d5016;
+        margin-bottom: 5px;
+      }
+
+      .sem34-description {
+        font-size: 11px;
+        color: #666;
+        line-height: 1.4;
+      }
+
+      .alert-box {
+        padding: 12px;
+        border-radius: 3px;
+        margin-top: 15px;
+        font-size: 12px;
+        line-height: 1.5;
+      }
+
+      .alert-warning {
+        background: #fff3cd;
+        border-left: 4px solid #ffc107;
+        color: #856404;
+      }
+
+      .alert-success {
+        background: #d4edda;
+        border-left: 4px solid #28a745;
+        color: #155724;
+      }
+
+      .alert-danger {
+        background: #f8d7da;
+        border-left: 4px solid #dc3545;
+        color: #721c24;
+      }
+
+      .alert-info {
+        background: #d1ecf1;
+        border-left: 4px solid #17a2b8;
+        color: #0c5460;
       }
 
       @media (max-width: 768px) {
@@ -456,11 +507,7 @@
         }
 
         .button-group {
-          flex-direction: column;
-        }
-
-        button {
-          width: 100%;
+          grid-template-columns: 1fr;
         }
       }
     </style>
@@ -469,19 +516,13 @@
   <body>
     <div class="page-wrapper">
       <div class="report-card">
-        <!-- Corner decorations -->
-        <div class="corner-decoration top-left"></div>
-        <div class="corner-decoration top-right"></div>
-        <div class="corner-decoration bottom-left"></div>
-        <div class="corner-decoration bottom-right"></div>
-
         <!-- Header -->
         <div class="header-section">
-          <div class="school-logo">🎓</div>
-          <h1>REPORT CARD</h1>
-          <p>A. Sravan Kumar School</p>
-          <p>Osmania University - MCA</p>
-          <p style="font-size: 12px; margin-top: 8px">CGPA Calculator</p>
+          <h1>MCA-CBCS-2-YEARS CGPA CALCULATOR</h1>
+          <p>Osmania University - Report Card</p>
+          <p style="font-size: 11px; margin-top: 8px; color: #000080">
+            A. Sravan Kumar School
+          </p>
         </div>
 
         <!-- Student Info -->
@@ -512,7 +553,6 @@
               <select
                 id="semesterSelect"
                 class="input-field"
-                style="padding: 8px; border: 1px solid #999; border-radius: 4px"
                 onchange="updateSubjects()"
               >
                 <option value="">-- Select --</option>
@@ -530,10 +570,10 @@
         <table class="grades-table">
           <thead>
             <tr>
-              <th>Sub Code</th>
-              <th>Subject Name</th>
-              <th>Credits</th>
-              <th>Grade Secured</th>
+              <th style="width: 10%">Sub Code</th>
+              <th style="width: 50%">Subject Name</th>
+              <th style="width: 10%">Credits</th>
+              <th style="width: 20%">Grade Secured</th>
             </tr>
           </thead>
           <tbody id="rows">
@@ -548,31 +588,6 @@
           </tbody>
         </table>
 
-        <!-- Calculate Buttons -->
-        <div
-          style="
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 10px;
-            margin: 20px 0;
-          "
-        >
-          <button
-            onclick="calculate()"
-            style="
-              padding: 10px;
-              background: #1e40af;
-              color: white;
-              border: none;
-              border-radius: 4px;
-              cursor: pointer;
-              font-weight: bold;
-            "
-          >
-            Calculate Overall
-          </button>
-        </div>
-
         <!-- Result Section -->
         <div id="result" class="result-section">
           <div class="result-value" id="resultValue"></div>
@@ -580,7 +595,7 @@
         </div>
 
         <!-- Summary Section -->
-        <div class="summary-section" id="summarySection" style="display: none">
+        <div class="summary-section" id="summarySection">
           <div class="summary-grid">
             <div class="summary-item">
               <div class="summary-label">Total Subjects</div>
@@ -598,77 +613,59 @@
         </div>
 
         <!-- Remarks -->
-        <div class="remarks-section" id="remarksSection" style="display: none">
+        <div class="remarks-section" id="remarksSection">
           <div class="remarks-label">Remarks / Comments:</div>
           <div class="remarks-text" id="remarksText"></div>
         </div>
 
         <!-- Target CGPA Calculator -->
-        <div
-          class="target-section"
-          id="targetSection"
-          style="
-            display: none;
-            margin-top: 30px;
-            padding: 20px;
-            background: #f0f8ff;
-            border: 2px solid #1e40af;
-            border-radius: 8px;
-          "
-        >
-          <div style="margin-bottom: 20px">
-            <h3 style="margin: 0 0 15px 0; color: #1e40af">
-              Semester 3 & 4 Target CGPA Calculator
-            </h3>
-            <p style="margin: 0 0 15px 0; color: #666; font-size: 14px">
-              Enter your target CGPA to see what scores you need in semesters 3
-              & 4
-            </p>
-
-            <div style="display: flex; gap: 10px; align-items: center">
-              <label style="font-weight: bold; color: #333">Target CGPA:</label>
-              <input
-                type="number"
-                id="targetCGPA"
-                placeholder="e.g., 8.5"
-                min="5"
-                max="10"
-                step="0.1"
-                style="
-                  padding: 8px;
-                  border: 1px solid #999;
-                  border-radius: 4px;
-                  width: 120px;
-                "
-              />
-              <button
-                onclick="calculateTargetScore()"
-                style="
-                  padding: 8px 20px;
-                  background: #1e40af;
-                  color: white;
-                  border: none;
-                  border-radius: 4px;
-                  cursor: pointer;
-                  font-weight: bold;
-                "
-              >
-                Calculate
-              </button>
-            </div>
-          </div>
+        <div class="target-section" id="targetSection">
+          <h3>Semester 3 & 4 Target CGPA Calculator</h3>
+          <p>
+            Enter your target CGPA to see what scores you need in semesters 3 &
+            4
+          </p>
 
           <div
-            id="targetResult"
             style="
-              display: none;
-              margin-top: 15px;
-              padding: 15px;
-              background: white;
-              border-left: 4px solid #1e40af;
-              border-radius: 4px;
+              display: flex;
+              gap: 10px;
+              align-items: center;
+              flex-wrap: wrap;
             "
           >
+            <label style="font-weight: bold; color: #333">Target CGPA:</label>
+            <input
+              type="number"
+              id="targetCGPA"
+              placeholder="e.g., 8.5"
+              min="5"
+              max="10"
+              step="0.1"
+              style="
+                padding: 8px;
+                border: 1px solid #999;
+                border-radius: 3px;
+                width: 120px;
+              "
+            />
+            <button
+              onclick="calculateTargetScore()"
+              style="
+                padding: 8px 20px;
+                background: #edc987;
+                color: #333;
+                border: 1px solid #111111;
+                border-radius: 3px;
+                cursor: pointer;
+                font-weight: bold;
+              "
+            >
+              Calculate
+            </button>
+          </div>
+
+          <div id="targetResult">
             <p
               id="targetMessage"
               style="margin: 0; color: #333; line-height: 1.6"
@@ -748,7 +745,6 @@
             credits: 4,
           },
 
-          // Labs
           {
             code: "R24LCC151",
             name: "Data Structures using C Lab",
@@ -778,7 +774,6 @@
           { code: "R24PCC205", name: "Machine Learning", credits: 4 },
           { code: "R24MGC206", name: "Operations Research", credits: 4 },
 
-          // Labs - Semester 2
           { code: "R24LCC251", name: "Operating Systems Lab", credits: 1.5 },
           {
             code: "R24LCC252",
@@ -793,32 +788,26 @@
         ],
 
         3: [
-          // Core subjects - Semester 3
           { code: "PCC301", name: "Software Engineering", credits: 4 },
           { code: "PCC302", name: "Computer Networks", credits: 4 },
           { code: "PCC303", name: "Artificial Intelligence", credits: 4 },
           { code: "PCC304", name: "Full Stack Development", credits: 4 },
 
-          // Professional Electives - Semester 3
           { code: "PEC312", name: "Distributed Systems", credits: 3 },
           { code: "PEC321", name: "Network Security", credits: 3 },
 
-          // Labs - Semester 3
           { code: "LCC351", name: "Computer Networks Lab", credits: 1.5 },
           { code: "LCC352", name: "Software Engineering Lab", credits: 1.5 },
           { code: "LCC353", name: "Full Stack Development Lab", credits: 1.5 },
 
-          // Internship - Semester 3
           { code: "SIP321", name: "Summer Internship", credits: 1.5 },
         ],
 
         4: [
-          // Electives - Semester 4
           { code: "P1", name: "Elective/Subject 1", credits: 3 },
-          { code: "P2", name: "Software Engineering", credits: 3 },
-          { code: "P3", name: "Operating Systems", credits: 3 },
+          { code: "P2", name: "Elective"-2, credits: 3 },
+          { code: "P3", name: "Elective-3", credits: 2 },
 
-          // Project - Semester 4
           { code: "PROJ401", name: "Project Work", credits: 12 },
         ],
       };
@@ -844,19 +833,19 @@
         for (let sem = 1; sem <= 4; sem++) {
           // Add semester header with Calculate button
           rows.innerHTML += `
-            <tr style="background: #2d5016; color: white; font-weight: bold;">
-              <td colspan="3" style="padding: 10px; text-align: left;">Semester ${sem}</td>
-              <td style="padding: 10px; text-align: center;">
-                <button onclick="calculateSemester(${sem})" style="padding: 5px 10px; background: #1e40af; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold;">Calculate</button>
+            <tr class="semester-header">
+              <td colspan="3" style="text-align: left;">Semester ${sem}</td>
+              <td style="text-align: center;">
+                <button onclick="calculateSemester(${sem})" style="padding: 5px 10px; background: #EDC987; color: #333; border: 1px solid #111111; border-radius: 3px; cursor: pointer; font-size: 12px; font-weight: bold;">Calculate</button>
               </td>
             </tr>
           `;
 
           subjectsBySemester[sem].forEach((s) => {
             rows.innerHTML += `
-              <tr style="background: ${sem % 2 === 0 ? "#f9f9f9" : "#fff"};">
+              <tr>
                 <td>${s.code}</td>
-                <td>${s.name}</td>
+                <td style="text-align: left;">${s.name}</td>
                 <td>${s.credits}</td>
                 <td>
                   <select class="grade-select" id="g${rowIndex}" onchange="updatePreview()">
@@ -963,63 +952,198 @@
           targetCGPA * (sem12Total + sem34Total) - sem12PointsTotal;
         const requiredGPA = requiredPoints / sem34Total;
 
-        let message = `<div style="margin-bottom: 20px;">`;
-        message += `<strong style="font-size: 16px; color: #2d5016;">Individual Semester Performance:</strong><br><br>`;
+        // Calculate current CGPA
+        const currentCGPA = (sem12PointsTotal / sem12Total).toFixed(2);
+
+        // Build message
+        let message = ``;
+
+        // Current Performance Section
+        message += `<div style="margin-bottom: 20px; padding: 15px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 3px;">`;
+        message += `<strong style="font-size: 13px; color: #333; display: block; margin-bottom: 10px;">📊 YOUR CURRENT PERFORMANCE (Sem 1 & 2)</strong>`;
+        message += `<div class="sem34-grid">`;
 
         // Semester 1
         const sem1CGPA =
           sem1Total > 0 ? (sem1Points / sem1Total).toFixed(2) : "N/A";
-        message += `<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px;">`;
-        message += `<div style="background: #e8f4f8; padding: 10px; border-left: 4px solid #2d5016; border-radius: 4px;">`;
-        message += `<p style="margin: 0; font-weight: bold; color: #2d5016;">Semester 1</p>`;
-        message += `<p style="margin: 5px 0 0 0; font-size: 18px; color: #1e40af; font-weight: bold;">${sem1CGPA}</p>`;
+        message += `<div class="sem34-card">`;
+        message += `<div class="sem34-title">Semester 1</div>`;
+        message += `<div class="sem34-value">${sem1CGPA}</div>`;
+        message += `<div class="sem34-description">Credits: ${sem1Total.toFixed(
+          1
+        )}</div>`;
         message += `</div>`;
 
         // Semester 2
         const sem2CGPA =
           sem2Total > 0 ? (sem2Points / sem2Total).toFixed(2) : "N/A";
-        message += `<div style="background: #e8f4f8; padding: 10px; border-left: 4px solid #2d5016; border-radius: 4px;">`;
-        message += `<p style="margin: 0; font-weight: bold; color: #2d5016;">Semester 2</p>`;
-        message += `<p style="margin: 5px 0 0 0; font-size: 18px; color: #1e40af; font-weight: bold;">${sem2CGPA}</p>`;
+        message += `<div class="sem34-card">`;
+        message += `<div class="sem34-title">Semester 2</div>`;
+        message += `<div class="sem34-value">${sem2CGPA}</div>`;
+        message += `<div class="sem34-description">Credits: ${sem2Total.toFixed(
+          1
+        )}</div>`;
+        message += `</div>`;
+
+        message += `</div>`;
+
+        // Overall current
+        message += `<div style="margin-top: 10px; padding: 10px; background: #f0f0f0; border-radius: 3px; text-align: center;">`;
+        message += `<div style="font-size: 11px; color: #666;">Sem 1 & 2 Combined CGPA</div>`;
+        message += `<div style="font-size: 18px; font-weight: bold; color: #333;">${currentCGPA}</div>`;
         message += `</div>`;
         message += `</div>`;
 
-        message += `<strong style="font-size: 14px; color: #2d5016;">Target CGPA: ${targetCGPA}</strong><br><br>`;
-        message += `<strong style="color: #2d5016;">What you need in Semesters 3 & 4:</strong><br>`;
-        message += `• Total Credits: ${sem34Total}<br>`;
-        message += `• Required Average GPA: <strong style="color: #1e40af; font-size: 14px;">${requiredGPA.toFixed(
+        // Target and Requirement Section
+        message += `<div style="margin-bottom: 20px; padding: 15px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 3px;">`;
+        message += `<strong style="font-size: 13px; color: #333; display: block; margin-bottom: 10px;">🎯 YOUR TARGET</strong>`;
+        message += `<div style="text-align: center; padding: 10px; background: white; border-radius: 3px; margin-bottom: 10px;">`;
+        message += `<div style="font-size: 11px; color: #666;">Target CGPA</div>`;
+        message += `<div style="font-size: 22px, font-weight: bold; color: #2d5016;">${targetCGPA}</div>`;
+        message += `</div>`;
+
+        // Sem 3 & 4 Requirement
+        message += `<div style="padding: 10px; background: #f0f0f0; border-radius: 3px; text-align: center;">`;
+        message += `<div style="font-size: 11px; color: #666; margin-bottom: 5px;">Required GPA for Sem 3 & 4</div>`;
+        message += `<div style="font-size: 18px; font-weight: bold; color: #2d5016;">${requiredGPA.toFixed(
           2
-        )}</strong><br><br>`;
+        )}</div>`;
+        message += `<div style="font-size: 10px; color: #999; margin-top: 5px;">Out of 10.0</div>`;
+        message += `</div>`;
+        message += `</div>`;
 
-        // Grade equivalent
+        // Semester 3 & 4 Breakdown
+        message += `<div style="margin-bottom: 20px; padding: 15px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 3px;">`;
+        message += `<strong style="font-size: 13px; color: #333; display: block; margin-bottom: 10px;">📚 SEMESTER 3 & 4 BREAKDOWN</strong>`;
+        message += `<div class="sem34-grid">`;
+
+        // Sem 3
+        let sem3Total = 0;
+        subjectsBySemester[3].forEach((s) => {
+          sem3Total += s.credits;
+        });
+        message += `<div class="sem34-card">`;
+        message += `<div class="sem34-title">Semester 3</div>`;
+        message += `<div class="sem34-description">Total Credits: <strong>${sem3Total.toFixed(
+          1
+        )}</strong><br>Subjects: <strong>${
+          subjectsBySemester[3].length
+        }</strong></div>`;
+        message += `</div>`;
+
+        // Sem 4
+        let sem4Total = 0;
+        subjectsBySemester[4].forEach((s) => {
+          sem4Total += s.credits;
+        });
+        message += `<div class="sem34-card">`;
+        message += `<div class="sem34-title">Semester 4</div>`;
+        message += `<div class="sem34-description">Total Credits: <strong>${sem4Total.toFixed(
+          1
+        )}</strong><br>Subjects: <strong>${
+          subjectsBySemester[4].length
+        }</strong></div>`;
+        message += `</div>`;
+
+        message += `</div>`;
+        message += `</div>`;
+
+        // Grade Equivalent
         let gradeNeeded = "";
-        if (requiredGPA >= 9) gradeNeeded = "S (Excellent)";
-        else if (requiredGPA >= 8) gradeNeeded = "A (Very Good)";
-        else if (requiredGPA >= 7) gradeNeeded = "B (Good)";
-        else if (requiredGPA >= 6) gradeNeeded = "C (Satisfactory)";
-        else if (requiredGPA >= 5) gradeNeeded = "D (Pass)";
-        else gradeNeeded = "Below Pass";
+        let gradeDescription = "";
+        if (requiredGPA >= 9.5) {
+          gradeNeeded = "S+ (Exceptional)";
+          gradeDescription = "Nearly perfect performance required";
+        } else if (requiredGPA >= 9) {
+          gradeNeeded = "S (Excellent)";
+          gradeDescription = "Excellent performance needed";
+        } else if (requiredGPA >= 8) {
+          gradeNeeded = "A (Very Good)";
+          gradeDescription = "Very good performance needed";
+        } else if (requiredGPA >= 7) {
+          gradeNeeded = "B (Good)";
+          gradeDescription = "Good performance needed";
+        } else if (requiredGPA >= 6) {
+          gradeNeeded = "C (Satisfactory)";
+          gradeDescription = "Satisfactory performance needed";
+        } else if (requiredGPA >= 5) {
+          gradeNeeded = "D (Pass)";
+          gradeDescription = "Pass needed";
+        } else {
+          gradeNeeded = "E (Below Pass)";
+          gradeDescription = "Below passing grade";
+        }
 
-        message += `Grade Equivalent: <strong style="color: #1e40af;">${gradeNeeded}</strong><br><br>`;
+        // Alert Section
+        if (requiredGPA > 10) {
+          message += `<div class="alert-box alert-danger">`;
+          message += `<strong>⚠️ TARGET NOT ACHIEVABLE</strong><br>`;
+          message += `Your target CGPA of ${targetCGPA} is <strong>impossible to achieve</strong> with your current Semester 1 & 2 performance (${currentCGPA}).`;
+          message += `<br><br><strong>Alternative Path:</strong> The highest possible CGPA you can achieve is <strong>${(
+            (sem12PointsTotal + sem34Total * 10) /
+            (sem12Total + sem34Total)
+          ).toFixed(2)}</strong> (if you score S in all Sem 3 & 4 subjects).`;
+          message += `</div>`;
+        } else if (requiredGPA > 9.5) {
+          message += `<div class="alert-box alert-warning">`;
+          message += `<strong>⚠️ EXTREMELY CHALLENGING TARGET</strong><br>`;
+          message += `You need an average of <strong>${requiredGPA.toFixed(
+            2
+          )} / 10</strong> in Sem 3 & 4 (${gradeNeeded}). This requires <strong>nearly perfect performance</strong> with minimal room for error.`;
+          message += `<br><br><strong>Realistic Alternative:</strong> Aim for CGPA <strong>${Math.max(
+            5,
+            (
+              (sem12PointsTotal + sem34Total * 9) /
+              (sem12Total + sem34Total)
+            ).toFixed(2)
+          )}</strong> which requires S/A grades in Sem 3 & 4.`;
+          message += `</div>`;
+        } else if (requiredGPA > 9) {
+          message += `<div class="alert-box alert-warning">`;
+          message += `<strong>⚠️ VERY CHALLENGING TARGET</strong><br>`;
+          message += `You need an average of <strong>${requiredGPA.toFixed(
+            2
+          )} / 10</strong> (${gradeNeeded}). Mostly S and occasional A grades required.`;
+          message += `<br><br><strong>Success Rate:</strong> Possible but requires consistent excellence in all Sem 3 & 4 subjects.`;
+          message += `</div>`;
+        } else if (requiredGPA > 8) {
+          message += `<div class="alert-box alert-info">`;
+          message += `<strong>ℹ️ CHALLENGING TARGET</strong><br>`;
+          message += `You need an average of <strong>${requiredGPA.toFixed(
+            2
+          )} / 10</strong> (${gradeNeeded}). Mix of A and B grades required.`;
+          message += `<br><br><strong>Recommendation:</strong> Focus on consistent performance in all subjects.`;
+          message += `</div>`;
+        } else if (requiredGPA > 7) {
+          message += `<div class="alert-box alert-success">`;
+          message += `<strong>✓ ACHIEVABLE TARGET</strong><br>`;
+          message += `You need an average of <strong>${requiredGPA.toFixed(
+            2
+          )} / 10</strong> (${gradeNeeded}). Good performance with some B grades acceptable.`;
+          message += `<br><br><strong>Action Plan:</strong> Study consistently and aim for B+ to A grades in Sem 3 & 4.`;
+          message += `</div>`;
+        } else {
+          message += `<div class="alert-box alert-success">`;
+          message += `<strong>✓ EASILY ACHIEVABLE TARGET</strong><br>`;
+          message += `You need an average of <strong>${requiredGPA.toFixed(
+            2
+          )} / 10</strong> (${gradeNeeded}). Moderate effort required.`;
+          message += `<br><br><strong>Outlook:</strong> This target is very realistic and achievable with regular study.`;
+          message += `</div>`;
+        }
 
-        // Calculate what overall CGPA would be
+        // Final CGPA Calculation
         const overallCGPA = (
           (sem12PointsTotal + requiredPoints) /
           (sem12Total + sem34Total)
         ).toFixed(2);
-        message += `<strong style="color: #2d5016;">Overall Result (Sem 1-4 Combined):</strong><br>`;
-        message += `<p style="margin: 5px 0; font-size: 16px; color: #2d5016; font-weight: bold;">Final CGPA: ${overallCGPA}</p><br>`;
 
-        if (requiredGPA > 10) {
-          message += `<span style="color: #c33;">⚠️ Target CGPA is not achievable with the current sem 1-2 performance</span>`;
-        } else if (requiredGPA >= 9) {
-          message += `<span style="color: #1e40af;">✓ You need excellent performance in semesters 3-4 to achieve this target</span>`;
-        } else if (requiredGPA >= 7) {
-          message += `<span style="color: #2d5016;">✓ This target is achievable with good performance in semesters 3-4</span>`;
-        } else {
-          message += `<span style="color: #2d5016;">✓ This target should be easily achievable in semesters 3-4</span>`;
-        }
-
+        message += `<div style="margin-top: 20px; padding: 15px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 3px;">`;
+        message += `<strong style="font-size: 13px; color: #333; display: block; margin-bottom: 10px;">📈 FINAL RESULT (All 4 Semesters)</strong>`;
+        message += `<div style="text-align: center; padding: 15px; background: linear-gradient(135deg, #edc987, #d4b878); border-radius: 3px;">`;
+        message += `<div style="font-size: 11px; color: #333; margin-bottom: 5px;">Overall CGPA if you achieve target in Sem 3 & 4</div>`;
+        message += `<div style="font-size: 28px; font-weight: bold; color: #2d5016;">${overallCGPA}</div>`;
+        message += `</div>`;
         message += `</div>`;
 
         document.getElementById("targetResult").style.display = "block";
@@ -1156,10 +1280,10 @@
 
             if (semFailed) {
               allResultsHTML += `
-                <div style="background: #fee; border: 2px solid #c33; padding: 15px; border-radius: 8px; text-align: center;">
+                <div style="background: #fee; border: 2px solid #c33; padding: 15px; border-radius: 3px; text-align: center;">
                   <p style="margin: 0 0 10px 0; font-weight: bold; color: #c33;">Semester ${sem}</p>
-                  <p style="margin: 0; font-size: 18px; font-weight: bold; color: #c33;">FAILED</p>
-                  <p style="margin: 5px 0 0 0; font-size: 12px; color: #666;">Retake required</p>
+                  <p style="margin: 0; font-size: 16px; font-weight: bold; color: #c33;">FAILED</p>
+                  <p style="margin: 5px 0 0 0; font-size: 11px; color: #666;">Retake required</p>
                 </div>
               `;
             } else {
@@ -1173,10 +1297,10 @@
               else semGrade = "E";
 
               allResultsHTML += `
-                <div style="background: #f0f8ff; border: 2px solid #2d5016; padding: 15px; border-radius: 8px; text-align: center;">
-                  <p style="margin: 0 0 10px 0; font-weight: bold; color: #2d5016;">Semester ${sem}</p>
-                  <p style="margin: 0; font-size: 24px; font-weight: bold; color: #2d5016;">${semCGPA}</p>
-                  <p style="margin: 5px 0 0 0; font-size: 12px; color: #666;">Grade: ${semGrade}</p>
+                <div style="background: #FEFCF5; border: 2px solid #EDC987; padding: 15px; border-radius: 3px; text-align: center;">
+                  <p style="margin: 0 0 10px 0; font-weight: bold; color: #333;">Semester ${sem}</p>
+                  <p style="margin: 0; font-size: 22px; font-weight: bold; color: #333;">${semCGPA}</p>
+                  <p style="margin: 5px 0 0 0; font-size: 11px; color: #666;">Grade: ${semGrade}</p>
                 </div>
               `;
             }
@@ -1270,24 +1394,24 @@
             const grade = document.getElementById(`g${i}`).value || "-";
             tableRows += `
               <tr>
-                <td style="border: 1px solid #ddd; padding: 10px; text-align: center;">${s.code}</td>
-                <td style="border: 1px solid #ddd; padding: 10px; text-align: left;">${s.name}</td>
-                <td style="border: 1px solid #ddd; padding: 10px; text-align: center;">${s.credits}</td>
-                <td style="border: 1px solid #ddd; padding: 10px; text-align: center; font-weight: bold; color: #2d5016;">${grade}</td>
+                <td style="border: 1px solid #ddd; padding: 10px; text-align: center; font-size: 12px;">${s.code}</td>
+                <td style="border: 1px solid #ddd; padding: 10px; text-align: left; font-size: 12px;">${s.name}</td>
+                <td style="border: 1px solid #ddd; padding: 10px; text-align: center; font-size: 12px;">${s.credits}</td>
+                <td style="border: 1px solid #ddd; padding: 10px; text-align: center; font-weight: bold; color: #333; font-size: 12px;">${grade}</td>
               </tr>
             `;
           });
         }
 
         const previewHTML = `
-          <div style="background: white; padding: 30px; border: 2px solid #2d5016; border-radius: 8px;">
-            <div style="text-align: center; margin-bottom: 25px;">
-              <h1 style="color: #2d5016; margin: 0; font-size: 28px;">REPORT CARD</h1>
-              <p style="color: #666; margin: 5px 0; font-size: 12px;">A. Sravan Kumar School | Osmania University - MCA</p>
+          <div style="background: white; padding: 25px; border: 2px solid #111111; border-radius: 3px;">
+            <div style="text-align: center; margin-bottom: 20px; border-bottom: 2px solid #EDC987; padding-bottom: 15px;">
+              <h1 style="color: #333; margin: 0; font-size: 24px;">REPORT CARD</h1>
+              <p style="color: #666; margin: 5px 0; font-size: 12px;">Osmania University - MCA | A. Sravan Kumar School</p>
             </div>
 
-            <div style="margin-bottom: 20px; background: #f9f9f9; padding: 15px; border-left: 4px solid #2d5016;">
-              <table style="width: 100%; font-size: 14px;">
+            <div style="margin-bottom: 20px; background: #FEFCF5; padding: 15px; border: 1px solid #ddd;">
+              <table style="width: 100%; font-size: 13px;">
                 <tr>
                   <td style="padding: 5px 0;"><strong>Student Name:</strong> ${studentName}</td>
                   <td style="padding: 5px 0;"><strong>Roll No:</strong> ${rollNo}</td>
@@ -1299,13 +1423,13 @@
               </table>
             </div>
 
-            <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+            <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px; border: 2px solid #111111;">
               <thead>
-                <tr style="background: #2d5016; color: white;">
-                  <th style="border: 1px solid #1a3009; padding: 12px; font-weight: bold;">Sub Code</th>
-                  <th style="border: 1px solid #1a3009; padding: 12px; font-weight: bold;">Subject Name</th>
-                  <th style="border: 1px solid #1a3009; padding: 12px; font-weight: bold;">Credits</th>
-                  <th style="border: 1px solid #1a3009; padding: 12px; font-weight: bold;">Grade Secured</th>
+                <tr style="background: #EDC987; color: #333;">
+                  <th style="border: 1px solid #111111; padding: 10px; font-weight: bold; font-size: 12px;">Sub Code</th>
+                  <th style="border: 1px solid #111111; padding: 10px; font-weight: bold; font-size: 12px;">Subject Name</th>
+                  <th style="border: 1px solid #111111; padding: 10px; font-weight: bold; font-size: 12px;">Credits</th>
+                  <th style="border: 1px solid #111111; padding: 10px; font-weight: bold; font-size: 12px;">Grade</th>
                 </tr>
               </thead>
               <tbody>
@@ -1313,20 +1437,18 @@
               </tbody>
             </table>
 
-            <div style="background: linear-gradient(135deg, #2d5016, #3a6b1f); color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-              <div style="text-align: center;">
-                <p style="margin: 0; font-size: 14px; opacity: 0.9;">CGPA Score</p>
-                <p style="margin: 10px 0; font-size: 36px; font-weight: bold;">${resultValue}</p>
-                <p style="margin: 0; font-size: 14px; opacity: 0.9;">Performance: ${resultLabel}</p>
-              </div>
+            <div style="background: linear-gradient(135deg, #EDC987, #d4b878); color: #333; padding: 20px; border: 2px solid #111111; margin-bottom: 20px; text-align: center;">
+              <p style="margin: 0; font-size: 13px;">CGPA Score</p>
+              <p style="margin: 10px 0; font-size: 32px; font-weight: bold;">${resultValue}</p>
+              <p style="margin: 0; font-size: 13px;">Performance: ${resultLabel}</p>
             </div>
 
-            <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; border: 1px solid #ddd;">
-              <p style="margin: 0 0 10px 0; color: #2d5016; font-weight: bold;">Remarks / Comments:</p>
-              <p style="margin: 0; color: #333; line-height: 1.6;">${remarksText}</p>
+            <div style="background: #FEFCF5; padding: 15px; border-radius: 3px; border: 1px solid #ddd;">
+              <p style="margin: 0 0 8px 0; color: #333; font-weight: bold; font-size: 12px;">Remarks / Comments:</p>
+              <p style="margin: 0; color: #333; line-height: 1.5; font-size: 12px;">${remarksText}</p>
             </div>
 
-            <div style="text-align: center; margin-top: 25px; border-top: 1px solid #ddd; padding-top: 15px; font-size: 11px; color: #999;">
+            <div style="text-align: center; margin-top: 20px; border-top: 1px solid #ddd; padding-top: 10px; font-size: 10px; color: #999;">
               © School Report Card System | Generated on: ${new Date().toLocaleString()}
             </div>
           </div>
@@ -1350,25 +1472,22 @@
           document.getElementById("reportDate").value ||
           new Date().toLocaleDateString();
 
-        // Title
-        doc.setFontSize(20);
-        doc.setTextColor(45, 80, 22);
+        doc.setFontSize(18);
+        doc.setTextColor(51, 51, 51);
         doc.text("REPORT CARD", 105, 20, { align: "center" });
 
-        doc.setFontSize(11);
+        doc.setFontSize(10);
         doc.setTextColor(100, 100, 100);
-        doc.text("A. Sravan Kumar School | Osmania University - MCA", 105, 27, {
+        doc.text("Osmania University - MCA | A. Sravan Kumar School", 105, 27, {
           align: "center",
         });
 
-        // Student Info
         doc.setFontSize(11);
         doc.setTextColor(0, 0, 0);
         doc.text(`Student Name: ${studentName}`, 20, 40);
         doc.text(`Roll No: ${rollNo}`, 110, 40);
         doc.text(`Date: ${reportDate}`, 20, 47);
 
-        // Table Header
         const tableData = [];
         if (subjects.length > 0) {
           subjects.forEach((s, i) => {
@@ -1379,24 +1498,23 @@
 
         if (tableData.length > 0) {
           doc.autoTable({
-            head: [["Sub Code", "Subject Name", "Credits", "Grade Secured"]],
+            head: [["Sub Code", "Subject Name", "Credits", "Grade"]],
             body: tableData,
             startY: 55,
             margin: 20,
             headStyles: {
-              fillColor: [45, 80, 22],
-              textColor: [255, 255, 255],
+              fillColor: [237, 201, 135],
+              textColor: [51, 51, 51],
               fontStyle: "bold",
             },
             bodyStyles: {
               textColor: [0, 0, 0],
             },
             alternateRowStyles: {
-              fillColor: [245, 245, 245],
+              fillColor: [254, 252, 245],
             },
           });
 
-          // Get result info
           const resultText = document.getElementById("resultValue").textContent;
           const resultLabel =
             document.getElementById("resultLabel").textContent;
@@ -1406,21 +1524,20 @@
           if (resultText && resultText !== "") {
             const yPosition = doc.lastAutoTable.finalY + 15;
 
-            doc.setFontSize(14);
-            doc.setTextColor(45, 80, 22);
+            doc.setFontSize(13);
+            doc.setTextColor(51, 51, 51);
             doc.text("CGPA:", 20, yPosition);
 
-            doc.setFontSize(16);
-            doc.setTextColor(45, 80, 22);
+            doc.setFontSize(14);
+            doc.setTextColor(51, 51, 51);
             doc.text(resultText, 50, yPosition);
 
-            doc.setFontSize(11);
+            doc.setFontSize(10);
             doc.setTextColor(100, 100, 100);
             doc.text(`Performance: ${resultLabel}`, 20, yPosition + 10);
 
-            // Remarks
             doc.setFontSize(11);
-            doc.setTextColor(45, 80, 22);
+            doc.setTextColor(51, 51, 51);
             doc.text("Remarks:", 20, yPosition + 20);
 
             doc.setFontSize(10);
@@ -1430,7 +1547,6 @@
           }
         }
 
-        // Footer
         doc.setFontSize(9);
         doc.setTextColor(150, 150, 150);
         doc.text(
@@ -1441,10 +1557,7 @@
           { align: "center" }
         );
 
-        // Save PDF
         doc.save(`Report_Card_${studentName}.pdf`);
-
-        // Close modal
         closePDFModal();
       }
 
