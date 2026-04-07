@@ -3,8 +3,29 @@
   <head>
     <meta charset="UTF-8" />
     <title>Report Card - CGPA Calculator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
 
     <style>
+      :root {
+        --bg: #fff8ef;
+        --paper: rgba(255, 255, 255, 0.88);
+        --paper-strong: #ffffff;
+        --ink: #2f241d;
+        --muted: #816e61;
+        --line: rgba(108, 84, 67, 0.15);
+        --accent: #f0c98d;
+        --accent-strong: #d69b58;
+        --accent-soft: #fff4e0;
+        --deep: #17324d;
+        --coral: #ef7f5e;
+        --shadow: 0 24px 60px rgba(153, 105, 56, 0.16);
+      }
+
       * {
         margin: 0;
         padding: 0;
@@ -12,42 +33,168 @@
       }
 
       body {
-        font-family: Arial, sans-serif;
-        background-color: #faf0d8;
+        font-family: "Outfit", sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(255, 214, 153, 0.55), transparent 28%),
+          radial-gradient(circle at top right, rgba(255, 240, 214, 0.85), transparent 30%),
+          linear-gradient(180deg, #fffaf3 0%, #fff3e0 100%);
         padding: 30px;
-        color: #333;
+        color: var(--ink);
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        top: 30px;
+        left: 30px;
+        right: 30px;
+        height: 260px;
+        border-radius: 36px;
+        background:
+          linear-gradient(120deg, rgba(240, 201, 141, 0.85), rgba(255, 236, 203, 0.45)),
+          repeating-linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.22) 0,
+            rgba(255, 255, 255, 0.22) 10px,
+            transparent 10px,
+            transparent 20px
+          );
+        z-index: -1;
+        box-shadow: var(--shadow);
+      }
+
+      body::after {
+        content: "";
+        position: fixed;
+        right: 34px;
+        bottom: 24px;
+        width: 180px;
+        height: 180px;
+        border-radius: 40px;
+        background:
+          linear-gradient(140deg, rgba(23, 50, 77, 0.1), rgba(239, 127, 94, 0.1)),
+          radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.7), transparent 55%);
+        transform: rotate(14deg);
+        z-index: -1;
+        filter: blur(1px);
       }
 
       .page-wrapper {
-        max-width: 900px;
+        max-width: 980px;
         margin: 0 auto;
       }
 
       .report-card {
-        background: white;
-        border: 2px solid #111111;
-        padding: 40px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+        background: var(--paper);
+        border: 1px solid rgba(255, 255, 255, 0.7);
+        border-radius: 36px;
+        padding: 42px;
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(14px);
+        animation: fadeUp 0.7s ease;
+      }
+
+      .report-card::before {
+        content: "";
+        position: absolute;
+        top: -140px;
+        right: -90px;
+        width: 320px;
+        height: 320px;
+        border-radius: 38% 62% 56% 44% / 43% 42% 58% 57%;
+        background:
+          linear-gradient(135deg, rgba(239, 127, 94, 0.16), rgba(240, 201, 141, 0.28));
+        pointer-events: none;
+        animation: floatBlob 8s ease-in-out infinite alternate;
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(18px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes floatBlob {
+        from {
+          transform: translateY(0) rotate(0deg);
+        }
+        to {
+          transform: translateY(24px) rotate(10deg);
+        }
       }
 
       .header-section {
-        text-align: center;
-        margin-bottom: 30px;
-        border-bottom: 2px solid #edc987;
-        padding-bottom: 20px;
+        position: relative;
+        text-align: left;
+        margin-bottom: 32px;
+        border-bottom: 1px solid var(--line);
+        padding: 12px 0 26px;
+      }
+
+      .hero-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 18px;
+      }
+
+      .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 9px 14px;
+        border-radius: 999px;
+        border: 1px solid rgba(23, 50, 77, 0.08);
+        background: rgba(255, 255, 255, 0.85);
+        color: var(--deep);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        box-shadow: 0 10px 24px rgba(23, 50, 77, 0.08);
+      }
+
+      .hero-badge::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--coral), var(--accent-strong));
       }
 
       .header-section h1 {
-        font-size: 18px;
-        font-weight: bold;
-        color: #333;
-        margin-bottom: 5px;
+        font-size: 42px;
+        font-weight: 800;
+        color: var(--ink);
+        margin-bottom: 10px;
+        letter-spacing: -0.03em;
+        line-height: 1.02;
+        max-width: 700px;
       }
 
       .header-section p {
-        font-size: 12px;
-        color: #666;
-        margin: 3px 0;
+        font-size: 14px;
+        color: var(--muted);
+        margin: 5px 0;
+      }
+
+      .hero-note {
+        max-width: 560px;
+        margin-top: 14px;
+        color: var(--deep);
+        font-size: 14px;
+        line-height: 1.7;
+        background: linear-gradient(135deg, rgba(255, 244, 224, 0.95), rgba(255, 255, 255, 0.86));
+        border: 1px solid rgba(214, 155, 88, 0.14);
+        border-radius: 18px;
+        padding: 14px 16px;
       }
 
       .student-info {
@@ -55,24 +202,30 @@
         grid-template-columns: 1fr 1fr;
         gap: 20px;
         margin-bottom: 30px;
-        background: #fefcf5;
-        padding: 20px;
-        border: 1px solid #ddd;
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(255, 247, 236, 0.94));
+        padding: 26px;
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.8),
+          0 18px 36px rgba(153, 105, 56, 0.06);
       }
 
       .info-row {
         display: flex;
         justify-content: space-between;
-        padding: 8px 0;
-        border-bottom: 1px dotted #ddd;
+        align-items: center;
+        gap: 14px;
+        padding: 10px 0;
+        border-bottom: 1px dashed rgba(108, 84, 67, 0.14);
       }
 
       .info-label {
-        font-weight: bold;
-        color: #333;
-        min-width: 100px;
-        background-color: #fefcf5;
-        padding: 5px;
+        font-weight: 700;
+        color: var(--ink);
+        min-width: 110px;
+        padding: 4px 0;
       }
 
       .info-value {
@@ -80,61 +233,68 @@
       }
 
       .input-field {
-        border: 1px solid #999;
-        border-radius: 3px;
-        padding: 8px;
+        border: 1px solid rgba(114, 88, 65, 0.18);
+        border-radius: 18px;
+        padding: 14px 16px;
         width: 100%;
-        background: white;
-        font-family: Arial;
-        font-size: 13px;
+        background: rgba(255, 255, 255, 0.95);
+        font-family: "Outfit", sans-serif;
+        font-size: 14px;
+        color: var(--ink);
+        transition: 0.25s ease;
       }
 
       .input-field:focus {
         outline: none;
-        border: 1px solid #edc987;
-        background-color: #fffef5;
+        border: 1px solid var(--accent-strong);
+        background-color: #fffdf9;
+        box-shadow: 0 0 0 4px rgba(240, 201, 141, 0.25);
+        transform: translateY(-1px);
       }
 
       .grades-table {
         width: 100%;
         border-collapse: collapse;
         margin-bottom: 25px;
-        border: 2px solid #111111;
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        overflow: hidden;
+        box-shadow: 0 20px 40px rgba(153, 105, 56, 0.08);
       }
 
       .grades-table thead {
-        background: #edc987;
-        color: #333;
+        background: linear-gradient(135deg, #17324d, #35597d);
+        color: #fff8ef;
       }
 
       .grades-table th {
-        padding: 12px;
+        padding: 16px 12px;
         text-align: center;
-        font-weight: bold;
+        font-weight: 700;
         font-size: 13px;
-        border: 1px solid #111111;
+        border: none;
+        letter-spacing: 0.03em;
       }
 
       .grades-table td {
         padding: 12px;
         text-align: center;
-        border: 1px solid #ddd;
+        border: 1px solid rgba(108, 84, 67, 0.08);
         font-size: 13px;
       }
 
       .grades-table tbody tr:nth-child(even) {
-        background: #fefcf5;
+        background: rgba(255, 250, 242, 0.92);
       }
 
       .grades-table tbody tr:hover {
-        background: #f5f0e8;
+        background: linear-gradient(90deg, rgba(255, 240, 214, 0.95), rgba(255, 247, 233, 0.95));
       }
 
       .semester-header {
-        background: #edc987;
-        color: #333;
-        font-weight: bold;
-        border: 1px solid #111111;
+        background: linear-gradient(135deg, #f9d69b, #fff0d3);
+        color: var(--ink);
+        font-weight: 700;
       }
 
       .semester-header td {
@@ -142,46 +302,53 @@
       }
 
       .grade-select {
-        padding: 6px 10px;
-        border: 1px solid #999;
-        border-radius: 3px;
-        background: white;
-        color: #333;
-        font-weight: bold;
+        padding: 11px 13px;
+        border: 1px solid rgba(114, 88, 65, 0.18);
+        border-radius: 999px;
+        background: linear-gradient(135deg, #fffdfa, #fff3de);
+        color: var(--ink);
+        font-weight: 700;
         cursor: pointer;
         font-size: 13px;
+        transition: 0.25s ease;
       }
 
       .grade-select:focus {
         outline: none;
-        border-color: #edc987;
-        background-color: #fffef5;
+        border-color: var(--accent-strong);
+        box-shadow: 0 0 0 4px rgba(240, 201, 141, 0.2);
       }
 
       .result-section {
-        background: linear-gradient(135deg, #edc987, #d4b878);
-        color: #333;
-        padding: 25px;
-        border: 2px solid #111111;
+        background:
+          linear-gradient(135deg, rgba(23, 50, 77, 0.96), rgba(53, 89, 125, 0.92)),
+          white;
+        color: #fff8ef;
+        padding: 30px;
+        border: 1px solid rgba(23, 50, 77, 0.18);
+        border-radius: 28px;
         text-align: center;
         margin-bottom: 25px;
         display: none;
+        box-shadow: 0 24px 48px rgba(23, 50, 77, 0.18);
       }
 
       .result-section.show {
         display: block;
+        animation: fadeUp 0.45s ease;
       }
 
       .result-value {
-        font-size: 48px;
-        font-weight: bold;
+        font-size: 62px;
+        font-weight: 800;
         margin-bottom: 10px;
-        color: #2d5016;
+        color: #fff4d8;
+        text-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
       }
 
       .result-label {
         font-size: 16px;
-        color: #333;
+        color: rgba(255, 248, 239, 0.9);
       }
 
       .result-section.fail {
@@ -194,9 +361,10 @@
       }
 
       .summary-section {
-        background: #fefcf5;
-        border: 2px solid #111111;
-        padding: 20px;
+        background: linear-gradient(180deg, #fffdf8, #fff7eb);
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        padding: 22px;
         margin-bottom: 25px;
         display: none;
       }
@@ -209,9 +377,11 @@
 
       .summary-item {
         text-align: center;
-        padding: 15px;
-        background: white;
-        border: 1px solid #ddd;
+        padding: 20px;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(255, 248, 236, 0.96));
+        border: 1px solid rgba(108, 84, 67, 0.08);
+        border-radius: 20px;
+        box-shadow: 0 12px 24px rgba(153, 105, 56, 0.06);
       }
 
       .summary-label {
@@ -231,57 +401,80 @@
       .button-group {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
-        margin: 30px 0;
+        gap: 18px;
+        margin: 34px 0;
       }
 
       button {
-        padding: 12px 20px;
+        position: relative;
+        overflow: hidden;
+        padding: 16px 22px;
         font-size: 14px;
-        font-weight: bold;
-        border: 1px solid #111111;
-        border-radius: 4px;
+        font-weight: 700;
+        border: 1px solid rgba(114, 88, 65, 0.14);
+        border-radius: 22px;
         cursor: pointer;
-        transition: 0.3s;
+        transition: 0.28s ease;
         text-transform: uppercase;
-        letter-spacing: 0.5px;
-        background: white;
+        letter-spacing: 0.12em;
+        background: var(--paper-strong);
+        font-family: "Outfit", sans-serif;
+        box-shadow: 0 16px 28px rgba(153, 105, 56, 0.1);
+      }
+
+      button::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          120deg,
+          transparent,
+          rgba(255, 255, 255, 0.45),
+          transparent
+        );
+        transform: translateX(-120%);
+        transition: transform 0.45s ease;
+      }
+
+      button:hover::before {
+        transform: translateX(120%);
       }
 
       #calculateBtn {
-        background: #edc987;
-        color: #333;
+        background: linear-gradient(135deg, #17324d, #35597d);
+        color: #fff7ee;
       }
 
       #calculateBtn:hover {
-        background: #d4b878;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        transform: translateY(-3px) scale(1.01);
+        box-shadow: 0 24px 34px rgba(23, 50, 77, 0.22);
       }
 
       #downloadBtn {
-        background: #edc987;
-        color: #333;
+        background: linear-gradient(135deg, #ef7f5e, #f7b267);
+        color: #fffaf4;
       }
 
       #downloadBtn:hover {
-        background: #d4b878;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        transform: translateY(-3px);
+        box-shadow: 0 24px 34px rgba(239, 127, 94, 0.24);
       }
 
       .footer {
         text-align: center;
         margin-top: 30px;
         padding-top: 20px;
-        border-top: 2px solid #edc987;
-        color: #666;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
         font-size: 11px;
       }
 
       .remarks-section {
         margin-top: 25px;
         padding: 20px;
-        background: #fefcf5;
-        border: 1px solid #ddd;
+        background: linear-gradient(180deg, #fffdfa, #fff5e7);
+        border: 1px solid var(--line);
+        border-radius: 26px;
         display: none;
       }
 
@@ -292,11 +485,12 @@
       }
 
       .remarks-text {
-        border: 1px solid #ddd;
-        padding: 10px;
+        border: 1px solid rgba(108, 84, 67, 0.12);
+        border-radius: 16px;
+        padding: 14px;
         min-height: 60px;
-        background: white;
-        color: #333;
+        background: rgba(255, 255, 255, 0.95);
+        color: var(--ink);
         font-size: 13px;
         line-height: 1.6;
       }
@@ -321,13 +515,14 @@
 
       .modal-content {
         background: white;
-        border: 2px solid #111111;
+        border: 1px solid rgba(108, 84, 67, 0.12);
+        border-radius: 30px;
         padding: 30px;
         width: 95%;
         max-width: 900px;
         max-height: 90vh;
         overflow-y: auto;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 24px 50px rgba(0, 0, 0, 0.24);
       }
 
       .modal-header {
@@ -400,9 +595,25 @@
       .target-section {
         display: none;
         margin-top: 30px;
-        padding: 20px;
-        background: #fefcf5;
-        border: 2px solid #111111;
+        padding: 24px;
+        background:
+          linear-gradient(180deg, #fffdf8, #fff4e3);
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .target-section::before {
+        content: "";
+        position: absolute;
+        top: -60px;
+        right: -40px;
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(239, 127, 94, 0.12), transparent 70%);
+        pointer-events: none;
       }
 
       .target-section h3 {
@@ -421,8 +632,9 @@
         display: none;
         margin-top: 15px;
         padding: 15px;
-        background: white;
+        background: rgba(255, 255, 255, 0.95);
         border-left: 4px solid #edc987;
+        border-radius: 16px;
       }
 
       .sem34-grid {
@@ -433,11 +645,12 @@
       }
 
       .sem34-card {
-        background: white;
-        padding: 15px;
-        border-left: 4px solid #edc987;
-        border-radius: 3px;
-        border: 1px solid #ddd;
+        background: linear-gradient(180deg, white, #fff6ea);
+        padding: 18px;
+        border-left: 4px solid #ef7f5e;
+        border-radius: 14px;
+        border: 1px solid rgba(108, 84, 67, 0.1);
+        box-shadow: 0 12px 24px rgba(153, 105, 56, 0.06);
       }
 
       .sem34-title {
@@ -493,8 +706,13 @@
       }
 
       @media (max-width: 768px) {
+        body {
+          padding: 18px;
+        }
+
         .report-card {
           padding: 20px;
+          border-radius: 26px;
         }
 
         .student-info {
@@ -509,6 +727,11 @@
         .button-group {
           grid-template-columns: 1fr;
         }
+
+        .info-row {
+          flex-direction: column;
+          align-items: stretch;
+        }
       }
     </style>
   </head>
@@ -518,11 +741,21 @@
       <div class="report-card">
         <!-- Header -->
         <div class="header-section">
+          <div class="hero-badges">
+            <span class="hero-badge">Semester Ready</span>
+            <span class="hero-badge">Target Planner</span>
+            <span class="hero-badge">Instant CGPA</span>
+          </div>
           <h1>MCA-CBCS-2-YEARS CGPA CALCULATOR</h1>
           <p>Osmania University - Report Card</p>
           <p style="font-size: 11px; margin-top: 8px; color: #000080">
             A. Sravan Kumar School
           </p>
+          <div class="hero-note">
+            Track each semester, switch between 1, 2, 3, 4 or all semesters,
+            and turn your CGPA sheet into something that feels sharper and more
+            modern.
+          </div>
         </div>
 
         <!-- Student Info -->
