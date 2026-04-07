@@ -556,6 +556,10 @@
                 onchange="updateSubjects()"
               >
                 <option value="">-- Select --</option>
+                <option value="1">Semester 1</option>
+                <option value="2">Semester 2</option>
+                <option value="3">Semester 3</option>
+                <option value="4">Semester 4</option>
                 <option value="all">All Semesters (1-4)</option>
               </select>
             </div>
@@ -828,9 +832,12 @@
 
         rows.innerHTML = "";
         let rowIndex = 0;
+        const semestersToShow =
+          semesterSelect === "all"
+            ? [1, 2, 3, 4]
+            : [parseInt(semesterSelect, 10)];
 
-        // Show all semesters combined
-        for (let sem = 1; sem <= 4; sem++) {
+        semestersToShow.forEach((sem) => {
           // Add semester header with Calculate button
           rows.innerHTML += `
             <tr class="semester-header">
@@ -863,14 +870,15 @@
             `;
             rowIndex++;
           });
-        }
+        });
         subjects = [];
-        for (let sem = 1; sem <= 4; sem++) {
+        semestersToShow.forEach((sem) => {
           subjects = subjects.concat(subjectsBySemester[sem]);
-        }
+        });
 
         // Show target section
-        document.getElementById("targetSection").style.display = "block";
+        document.getElementById("targetSection").style.display =
+          semesterSelect === "all" ? "block" : "none";
       }
 
       function updatePreview() {
@@ -1235,6 +1243,13 @@
       }
 
       function calculate() {
+        const semesterSelect = document.getElementById("semesterSelect").value;
+
+        if (semesterSelect && semesterSelect !== "all") {
+          calculateSemester(parseInt(semesterSelect, 10));
+          return;
+        }
+
         // Calculate CGPA for all semesters
         calculateBySemester();
       }
